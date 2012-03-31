@@ -1186,7 +1186,7 @@ gapi.hangout.onApiReady.add(
         console.log(StateChangedEvent);
         onMessage(StateChangedEvent.state);
       });
-      loadFunction();
+      dojo.addOnLoad(loadFunction);
     }
   }
 );
