@@ -123,7 +123,7 @@
 
           <div id="movieDialog" dojoType="dijit.Dialog" title="Move slider to see drawing steps."  style="display: none">
               <div id="movieWhiteboardContainer" style="border: 2px blue solid; background-color: white;"></div><br>
-              <div id="movieSlider" dojoType="dijit.form.HorizontalSlider" value="0" minimum="0" maximum="1" discreteValues="2" intermediateChanges="true" showButtons="false" style="width:500px;"></div><br> <button dojoType="dijit.form.Button" id="exportMovieImgBtn"><img src="images/export-icon.png"></button>
+              <div id="movieSlider" dojoType="dijit.form.HorizontalSlider" value="0" minimum="0" maximum="1" discreteValues="2" intermediateChanges="true" showButtons="false" style="width:500px;"></div><br> <button dojoType="dijit.form.Button" id="exportMovieImgBtn"><img src="http://phated.github.com/draw-it-live-hangout/images/export-icon.png"></button>
               <div dojoType="dijit.Tooltip" connectId="exportMovieImgBtn">Export this snapshot of the drawing surface.</div>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               user: <span id="movieUser">user</span><br>
@@ -137,38 +137,38 @@
               </div>
               <form onsubmit="return false" dojoType="dijit.form.Form" id="toolForm">
 
-               <button dojoType="dijit.form.Button" id="penToolBtn"><img border="0" src="images/pencil.png"></button>
+               <button dojoType="dijit.form.Button" id="penToolBtn"><img border="0" src="http://phated.github.com/draw-it-live-hangout/images/pencil.png"></button>
                <div dojoType="dijit.Tooltip" connectId="penToolBtn" position="above" showDelay="0">Pencil<br>(freehand drawing)</div>
 
-               <button dojoType="dijit.form.Button" id="lineToolBtn"><img border="0" src="images/line.png"></button>
+               <button dojoType="dijit.form.Button" id="lineToolBtn"><img border="0" src="http://phated.github.com/draw-it-live-hangout/images/line.png"></button>
                <div dojoType="dijit.Tooltip" connectId="lineToolBtn" position="above" showDelay="0">Straight Line</div>
 
-               <button dojoType="dijit.form.Button" id="rectToolBtn"><img border="0" src="images/rect.png"></button>
+               <button dojoType="dijit.form.Button" id="rectToolBtn"><img border="0" src="http://phated.github.com/draw-it-live-hangout/images/rect.png"></button>
                <div dojoType="dijit.Tooltip" connectId="rectToolBtn" position="above" showDelay="0">Rectangle</div>
 
-               <button dojoType="dijit.form.Button" id="filledRectToolBtn"><img border="0" src="images/filledRect.png"></button>
+               <button dojoType="dijit.form.Button" id="filledRectToolBtn"><img border="0" src="http://phated.github.com/draw-it-live-hangout/images/filledRect.png"></button>
                <div dojoType="dijit.Tooltip" connectId="filledRectToolBtn" position="above" showDelay="0">Filled Rectangle</div>
 
-               <button dojoType="dijit.form.Button" id="ellipseToolBtn"><img border="0" src="images/ellipse.png"></button>
+               <button dojoType="dijit.form.Button" id="ellipseToolBtn"><img border="0" src="http://phated.github.com/draw-it-live-hangout/images/ellipse.png"></button>
                <div dojoType="dijit.Tooltip" connectId="ellipseToolBtn" position="above" showDelay="0">Ellipse</div>
 
-               <button dojoType="dijit.form.Button" id="filledEllipseToolBtn"><img border="0" src="images/filledEllipse.png"></button>
+               <button dojoType="dijit.form.Button" id="filledEllipseToolBtn"><img border="0" src="http://phated.github.com/draw-it-live-hangout/images/filledEllipse.png"></button>
                <div dojoType="dijit.Tooltip" connectId="filledEllipseToolBtn" position="above" showDelay="0">Filled Ellipse</div>
 
 
-               <button dojoType="dijit.form.Button" id="textToolBtn"><img border="0" src="images/text.png"></button>
+               <button dojoType="dijit.form.Button" id="textToolBtn"><img border="0" src="http://phated.github.com/draw-it-live-hangout/images/text.png"></button>
                <div dojoType="dijit.Tooltip" connectId="textToolBtn" position="above" showDelay="0">Draw Text</div>
 
-               <button dojoType="dijit.form.Button" id="moveToolBtn"><img border="0" src="images/move.png"></button>
+               <button dojoType="dijit.form.Button" id="moveToolBtn"><img border="0" src="http://phated.github.com/draw-it-live-hangout/images/move.png"></button>
                <div dojoType="dijit.Tooltip" connectId="moveToolBtn" position="above" showDelay="0">Move a shape</div>
 
-               <button dojoType="dijit.form.Button" id="moveUpToolBtn"><img border="0" src="images/moveUp.png"></button>
+               <button dojoType="dijit.form.Button" id="moveUpToolBtn"><img border="0" src="http://phated.github.com/draw-it-live-hangout/images/moveUp.png"></button>
                <div dojoType="dijit.Tooltip" connectId="moveUpToolBtn" position="above" showDelay="0">Pull a shape forward</div>
 
-               <button dojoType="dijit.form.Button" id="moveDownToolBtn"><img border="0" src="images/moveDown.png"></button>
+               <button dojoType="dijit.form.Button" id="moveDownToolBtn"><img border="0" src="http://phated.github.com/draw-it-live-hangout/images/moveDown.png"></button>
                <div dojoType="dijit.Tooltip" connectId="moveDownToolBtn" position="above" showDelay="0">Push a shape back</div>
 
-               <button dojoType="dijit.form.Button" id="deleteToolBtn"><img border="0" src="images/delete.png"></button>
+               <button dojoType="dijit.form.Button" id="deleteToolBtn"><img border="0" src="http://phated.github.com/draw-it-live-hangout/images/delete.png"></button>
                <div dojoType="dijit.Tooltip" connectId="deleteToolBtn" position="above" showDelay="0">Delete a shape</div>
 
                <div id="lineColorDisplay" style="background-color: FFFFFF; border-color: black; border-width: 1px;" dojoType="dijit.form.DropDownButton">
@@ -282,11 +282,11 @@
                   </option>
                 </select>
 
-                <button dojoType="dijit.form.Button" id="exportImgBtn"><img src="images/export-icon.png"></button>
+                <button dojoType="dijit.form.Button" id="exportImgBtn"><img src="http://phated.github.com/draw-it-live-hangout/images/export-icon.png"></button>
                 <div dojoType="dijit.Tooltip" connectId="exportImgBtn" position="below" showDelay="0">
                   Export the drawing surface.
                 </div>
-                <button dojoType="dijit.form.Button" id="showMovieBtn"><img src="images/movie-icon.png"></button>
+                <button dojoType="dijit.form.Button" id="showMovieBtn"><img src="http://phated.github.com/draw-it-live-hangout/images/movie-icon.png"></button>
                 <div dojoType="dijit.Tooltip" connectId="showMovieBtn" position="below" showDelay="0">
                   View all steps that made this drawing.
                 </div>
