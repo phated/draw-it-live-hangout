@@ -1102,8 +1102,6 @@ gapi.hangout.onApiReady.add(
       gapi.hangout.data.onStateChanged.add(function(StateChangedEvent){
         try {
           console.log(StateChangedEvent);
-          var added = StateChangedEvent.addedKeys[0];
-          console.log(added);
           dojo.forEach(StateChangedEvent.addedKeys, function(added){
             if(added.key === 'messageList'){
               messageList = dojo.fromJson(added.value);
