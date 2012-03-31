@@ -1104,14 +1104,13 @@ gapi.hangout.onApiReady.add(
           console.log(StateChangedEvent);
           var added = StateChangedEvent.addedKeys[0];
           console.log(added);
-          if(added.key === 'messageList'){
-            messageList = dojo.fromJson(added.value);
-          } else {
-            dojo.forEach(StateChangedEvent.addedKeys, function(val){
-              onMessage(val.value)
-            });
-            //onMessage(StateChangedEvent.added);
-          }
+          dojo.forEach(StateChangedEvent.addedKeys, function(added){
+            if(added.key === 'messageList'){
+              messageList = dojo.fromJson(added.value);
+            } else {
+              onMessage(added.value);
+            }
+          });
         } catch(err) {
           console.log(err);
         }
