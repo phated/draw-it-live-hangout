@@ -54,8 +54,8 @@ var whiteboard = {
 };
 
 whiteboard.sendMessage = function(message){
-
-  dojo.xhrPost({
+  gapi.hangout.data.submitDelta({wbId: wbId, data: dojo.toJson(message)});
+  /*dojo.xhrPost({
   url: '/wbpost',
   content: {
   wbId: wbId,
@@ -74,7 +74,7 @@ whiteboard.sendMessage = function(message){
   },
   handleAs: "json",
   preventCache: true
-  });
+  });*/
 };
 
   whiteboard.pingServer = function() {
