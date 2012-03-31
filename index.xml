@@ -25,7 +25,7 @@
     </head>
     <body>
       <script src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.0"></script>
-      <script src="script.js"></script>
+      <script src="http://phated.github.com/draw-it-live-hangout/script.js"></script>
       <h3>Simple Hangout App</h3>
       <p>
         <input class="button" type="button" value="Show participants!" id="showParticipants" style="visibility:hidden;"
