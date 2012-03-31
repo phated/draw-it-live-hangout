@@ -30,9 +30,8 @@ function init() {
 
         var participantId = gapi.hangout.getParticipantId();
         gapi.hangout.data.setValue(gapi.hangout.getParticipantById(participantId).person.displayName, participantId);
-        //console.log(gapi.hangout.data.getState());
-        document.getElementById('showParticipants')
-          .style.visibility = 'visible';
+
+        dojo.require('azp.Whiteboard');
       }
     });
 }
