@@ -21,14 +21,14 @@
   <![CDATA[
     <html>
     <head>
-      <link rel="stylesheet" href="css/style.css?v=3">
-      <link href="styles.css" />
+      <link rel="stylesheet" href="http://phated.github.com/draw-it-live-hangout/css/style.css?v=3">
+      <link href="http://phated.github.com/draw-it-live-hangout/styles.css" />
 
-      <script src="js/libs/modernizr2.js"></script>
+      <script src="http://phated.github.com/draw-it-live-hangout/js/libs/modernizr2.js"></script>
       <script TYPE="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js" djConfig="parseOnLoad: true, baseUrl: '/js/', modulePaths:{azp:'azp'}, gfxRenderer:'canvas,svg,vml,silverlight',defaultDuration:1"></script>
 
       <style type="text/css">
-        @import "css/claro.css";
+        @import "http://phated.github.com/draw-it-live-hangout/css/claro.css";
         @import "http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/widget/ColorPicker/ColorPicker.css";
       </style>
     </head>
@@ -92,8 +92,8 @@
 
             var error = '';
           </script>
-          <script src="js/azp/WBCommon.js"></script>
-          <script src="js/azp/Whiteboard.js"></script>
+          <script src="http://phated.github.com/draw-it-live-hangout/js/azp/WBCommon.js"></script>
+          <script src="http://phated.github.com/draw-it-live-hangout/js/azp/Whiteboard.js"></script>
 
           <div id="imgDialog" dojoType="dijit.Dialog" title="Right-click on image to save it">
             <img id="exportedImg" name="exportedImg">
