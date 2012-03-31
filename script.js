@@ -30,10 +30,9 @@ function init() {
 
         var participantId = gapi.hangout.getParticipantId();
         gapi.hangout.data.setValue(gapi.hangout.getParticipantById(participantId).person.displayName, participantId);
-
-        dojo.require('azp.Whiteboard');
       }
-    });
+    }
+  );
 }
 
 // Wait for gadget to load.

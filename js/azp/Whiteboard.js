@@ -1,5 +1,7 @@
-dojo.provide('azp.Whiteboard');
-
+//dojo.provide('azp.Whiteboard');
+gapi.hangout.onApiReady.add(
+    function(eventObj) {
+      if (eventObj.isApiReady) {
 dojo.require('dijit.form.ValidationTextBox');
 dojo.require('dijit.form.Button');
 dojo.require('dijit.Dialog');
@@ -1530,8 +1532,7 @@ function DNDFileController(id) {
     el_.addEventListener("drop", this.drop, false);
   };
 
-
-
-
-
  dojo.addOnLoad(loadFunction);
+    }
+  }
+);

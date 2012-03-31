@@ -91,6 +91,8 @@
 
             var error = '';
           </script>
+          <script src="http://phated.github.com/draw-it-live-hangout/js/azp/WBCommon.js"></script>
+          <script src="http://phated.github.com/draw-it-live-hangout/js/azp/Whiteboard.js"></script>
 
           <div id="imgDialog" dojoType="dijit.Dialog" title="Right-click on image to save it">
             <img id="exportedImg" name="exportedImg">
