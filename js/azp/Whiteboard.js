@@ -1096,6 +1096,7 @@ gapi.hangout.onApiReady.add(
       });
       gapi.hangout.onParticipantsEnabled.add(function(ParticipantsEnabledEvent){
         gapi.hangout.data.submitDelta({messageList: dojo.toJson(messageList)});
+        messageList = gapi.hangout.data.getValue('messageList');
       });
       dojo.addOnLoad(loadFunction);
     }
