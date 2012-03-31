@@ -469,12 +469,10 @@ var getBoundingBox = function(geom){
         }
       });
     }
-
     return bb;
   } else {
     return null;
   }
-
 };
 
 var removeShape = function(geom, drawing){
@@ -510,7 +508,6 @@ var moveShapeDown = function(geom, drawing){
     shape.moveToBack();
   }
 };
-
 
 var getShapeFromGeom = function(geom, drawing){
   var retVal = null;
@@ -566,7 +563,7 @@ var doGfxMouseMove = function(evt){
           drawFromJSON(geom,whiteboard.overlayDrawing);
         }
       }
-    }else{
+    } else {
       var bounds = {x1:whiteboard.mouseDownPt.x, y1:whiteboard.mouseDownPt.y, x2: pt.x, y2: pt.y};
       if(whiteboard.tool != 'pen'){
         whiteboard.overlayDrawing.clear();
@@ -577,34 +574,29 @@ var doGfxMouseMove = function(evt){
       if(whiteboard.tool == 'rect'){
         geom  = createRectJSON(bounds,false);
         drawFromJSON(geom,whiteboard.overlayDrawing);
-      }else if(whiteboard.tool == 'filledRect'){
+      } else if(whiteboard.tool == 'filledRect'){
         geom  = createRectJSON(bounds,true);
         drawFromJSON(geom,whiteboard.overlayDrawing);
-      }else if(whiteboard.tool == 'ellipse'){
+      } else if(whiteboard.tool == 'ellipse'){
         geom  = createEllipseJSON(bounds,false);
         drawFromJSON(geom,whiteboard.overlayDrawing);
-      }else if(whiteboard.tool == 'filledEllipse'){
+      } else if(whiteboard.tool == 'filledEllipse'){
         geom  = createEllipseJSON(bounds,true);
         drawFromJSON(geom,whiteboard.overlayDrawing);
-      }else if(whiteboard.tool == 'line'){
+      } else if(whiteboard.tool == 'line'){
         geom  = createLineJSON(bounds);
         drawFromJSON(geom,whiteboard.overlayDrawing);
-      }else if(whiteboard.tool == 'move'){
-        if(whiteboard.selectedShape && whiteboard.mouseDownPt)
-        {
+      } else if(whiteboard.tool == 'move'){
+        if(whiteboard.selectedShape && whiteboard.mouseDownPt){
           geom = createMoveOverlayJSON(whiteboard.selectedShape.wbbb);
           drawFromJSON(geom,whiteboard.overlayDrawing);
           var offBB = createOffsetBB(whiteboard.selectedShape.wbbb,whiteboard.mouseDownPt,pt);
-          //console.dir(offBB);
           var geom2 = createMoveOverlayJSON(offBB);
-
           drawFromJSON(geom2,whiteboard.overlayDrawing);
         }
       }
-
     }
-  }
-  else{
+  } else {
     if(whiteboard.tool == 'move'){
       whiteboard.overlayDrawing.clear();
       var shape = getHoveredShape(whiteboard.drawing,pt);
@@ -613,9 +605,7 @@ var doGfxMouseMove = function(evt){
         drawFromJSON(geom,whiteboard.overlayDrawing);
       }
     }
-
   }
-
 
   //mouse up or down doesn't matter for the select and delete tools
   if(whiteboard.tool == 'delete'){
@@ -625,14 +615,14 @@ var doGfxMouseMove = function(evt){
       geom = createDeleteOverlayJSON(shape.wbbb);
       drawFromJSON(geom,whiteboard.overlayDrawing);
     }
-  }else if(whiteboard.tool == 'moveUp'){
+  } else if(whiteboard.tool == 'moveUp'){
     whiteboard.overlayDrawing.clear();
     var shape = getHoveredShape(whiteboard.drawing,pt);
     if(shape){
       geom = createMoveUpOverlayJSON(shape.wbbb);
       drawFromJSON(geom,whiteboard.overlayDrawing);
     }
-  }else if(whiteboard.tool == 'moveDown'){
+  } else if(whiteboard.tool == 'moveDown'){
     whiteboard.overlayDrawing.clear();
     var shape = getHoveredShape(whiteboard.drawing,pt);
     if(shape){
@@ -640,15 +630,12 @@ var doGfxMouseMove = function(evt){
       drawFromJSON(geom,whiteboard.overlayDrawing);
     }
   }
+};
 
-  };
 
-
- var doGfxMouseUp = function(evt)
-  {
+var doGfxMouseUp = function(evt){
   var pt = getGfxMouse(evt);
   whiteboard.mouseDown = false;
-  //console.dir(pt);
 
   //always clear the overlay
   whiteboard.overlayDrawing.clear();
@@ -656,77 +643,61 @@ var doGfxMouseMove = function(evt){
   if(whiteboard.mouseDownPt){
     //make sure mouse was released inside of drawing area
     if(pointInDrawing(pt)){
-
-      //console.dir(whiteboard.mouseDownPt);
-
       var bounds = {x1:whiteboard.mouseDownPt.x, y1:whiteboard.mouseDownPt.y, x2: pt.x, y2: pt.y};
-      //whiteboard.mouseDownPt = null;
 
       var geom = null;
       if(whiteboard.tool == 'rect'){
         geom  = createRectJSON(bounds,false);
         drawFromJSON(geom,whiteboard.drawing);
-      }else if(whiteboard.tool == 'filledRect'){
+      } else if(whiteboard.tool == 'filledRect'){
         geom  = createRectJSON(bounds,true);
         drawFromJSON(geom,whiteboard.drawing);
-      }else if(whiteboard.tool == 'ellipse'){
+      } else if(whiteboard.tool == 'ellipse'){
         geom  = createEllipseJSON(bounds,false);
         drawFromJSON(geom,whiteboard.drawing);
-      }else if(whiteboard.tool == 'filledEllipse'){
+      } else if(whiteboard.tool == 'filledEllipse'){
         geom  = createEllipseJSON(bounds,true);
         drawFromJSON(geom,whiteboard.drawing);
-      }else if(whiteboard.tool == 'line'){
+      } else if(whiteboard.tool == 'line'){
         geom  = createLineJSON(bounds);
         drawFromJSON(geom,whiteboard.drawing);
-      }else if(whiteboard.tool == 'pen'){
+      } else if(whiteboard.tool == 'pen'){
         geom = createPenJSON(whiteboard.points);
         drawFromJSON(geom,whiteboard.drawing);
         console.log("num pen points sending:",geom.xPts.length);
-      }else if(whiteboard.tool == 'delete'){
+      } else if(whiteboard.tool == 'delete'){
         var shape = getHoveredShape(whiteboard.drawing,pt);
         if(shape){
           geom = createDeleteJSON(shape);
           drawFromJSON(geom,whiteboard.drawing);
         }
-      }else if(whiteboard.tool == 'move'){
-        //console.log(whiteboard.selectedShape,whiteboard.mouseDownPt,bounds);
-        if(whiteboard.selectedShape && whiteboard.mouseDownPt)
-        {
+      } else if(whiteboard.tool == 'move'){
+        if(whiteboard.selectedShape && whiteboard.mouseDownPt){
           var ptDelta = {x: (pt.x - whiteboard.mouseDownPt.x),y: (pt.y - whiteboard.mouseDownPt.y)};
-
           geom = createMoveJSON(whiteboard.selectedShape, ptDelta);
-
           drawFromJSON(geom,whiteboard.drawing);
-          //console.dir(geom);
         }
-
-      }else if(whiteboard.tool == 'moveUp'){
+      } else if(whiteboard.tool == 'moveUp'){
         var shape = getHoveredShape(whiteboard.drawing,pt);
         if(shape){
           geom = createMoveUpJSON(shape);
           drawFromJSON(geom,whiteboard.drawing);
         }
-      }else if(whiteboard.tool == 'moveDown'){
+      } else if(whiteboard.tool == 'moveDown'){
         var shape = getHoveredShape(whiteboard.drawing,pt);
         if(shape){
           geom = createMoveDownJSON(shape);
           drawFromJSON(geom,whiteboard.drawing);
         }
-      }else if(whiteboard.tool == 'text'){
+      } else if(whiteboard.tool == 'text'){
         whiteboard.textPoint = pt;
         dijit.byId('textDialog').show();
         dijit.byId('wbText').focus();
-
       }
-
-
-      //whiteboard.points = [];
-
       if(geom){
         whiteboard.sendMessage({geometry:geom});
       }
-
-    }else{
+    } else {
       whiteboard.mouseDownPt = null;
       console.log("mouse released outside of drawing area");
     }
@@ -736,28 +707,25 @@ var doGfxMouseMove = function(evt){
   whiteboard.mouseDownPt = null;
   whiteboard.selectedShape = null;
   whiteboard.points = [];
+};
 
-  };
-
-  //first point should be upper left of rect
+//first point should be upper left of rect
 var  normalizeBounds = function(bounds){
-    if(bounds.x2 < bounds.x1){
-      var tempX1 = bounds.x1;
-      bounds.x1 = bounds.x2;
-      bounds.x2 = tempX1;
-    }
-    if(bounds.y2 < bounds.y1){
-      var tempY1 = bounds.y1;
-      bounds.y1 = bounds.y2;
-      bounds.y2 = tempY1;
-    }
-    return bounds;
-  };
-
+  if(bounds.x2 < bounds.x1){
+    var tempX1 = bounds.x1;
+    bounds.x1 = bounds.x2;
+    bounds.x2 = tempX1;
+  }
+  if(bounds.y2 < bounds.y1){
+    var tempY1 = bounds.y1;
+    bounds.y1 = bounds.y2;
+    bounds.y2 = tempY1;
+  }
+  return bounds;
+};
 
 var getHoveredShape = function(drawing, pt){
-
-  try{
+  try {
     var children = drawing.children;
     if(children){
       for(var i = children.length; i > 0; i--){
@@ -767,12 +735,11 @@ var getHoveredShape = function(drawing, pt){
         }
       }
     }
-  }catch(e){
+  } catch(e){
     console.log('error finding shape',e);
   }
 
   return null;
-
 };
 
 var ptInBox = function(pt, box){
@@ -785,162 +752,142 @@ var ptInBox = function(pt, box){
   }else{
     return false;
   }
-
 };
 
-var selectTool = function(toolName)
-  {
+var selectTool = function(toolName){
+  hide("lineColorDisplay");
+  hide("fillColorDisplay");
+  hide("lineStrokeSelect");
+  hide("fontSizeSelect");
 
-    hide("lineColorDisplay");
-    hide("fillColorDisplay");
-    hide("lineStrokeSelect");
-    hide("fontSizeSelect");
-
-    var tool = null;
-    dojo.forEach(tools,function(aTool){
-        if(aTool.name == toolName){
-          tool = aTool;
-        }
-      //dojo.style(dijit.byId(aTool.name + 'ToolBtn').domNode,'border','0px');
-        //dojo.addClass(dojo.style(dijit.byId(aTool.name + 'ToolBtn').domNode, "selected");
-        dojo.removeClass(dijit.byId(aTool.name + 'ToolBtn').domNode, "selected");
-    });
-
-    //dojo.style(dijit.byId(tool.name + 'ToolBtn').domNode,'border','2px solid black');
-        dojo.addClass(dijit.byId(tool.name + 'ToolBtn').domNode, "selected");
-    whiteboard.tool = tool.name;
-
-    if(tool.showLineColor){
-      show("lineColorDisplay");
+  var tool = null;
+  dojo.forEach(tools,function(aTool){
+    if(aTool.name == toolName){
+      tool = aTool;
     }
-    if(tool.showFillColor){
-      show("fillColorDisplay");
-    }
-    if(tool.showLineThickness){
-      show("lineStrokeSelect");
-    }
-    if(tool.showFontSize){
-      show("fontSizeSelect");
-    }
+    dojo.removeClass(dijit.byId(aTool.name + 'ToolBtn').domNode, "selected");
+  });
 
-  };
+  dojo.addClass(dijit.byId(tool.name + 'ToolBtn').domNode, "selected");
+  whiteboard.tool = tool.name;
 
- var hide = function(id){
-  try{
+  if(tool.showLineColor){
+    show("lineColorDisplay");
+  }
+  if(tool.showFillColor){
+    show("fillColorDisplay");
+  }
+  if(tool.showLineThickness){
+    show("lineStrokeSelect");
+  }
+  if(tool.showFontSize){
+    show("fontSizeSelect");
+  }
+};
+
+var hide = function(id){
+  try {
     dijit.byId(id).domNode.style.display = 'none';
-  }catch(e)
-  {
-  }
- };
+  } catch(e){}
+};
 
- var show = function(id){
-   try{
+var show = function(id){
+  try {
     dijit.byId(id).domNode.style.display = '';
-  }catch(e)
-  {
-  }
- };
+  } catch(e){}
+};
 
- var chooseColor = function(type) {
-      var cp = dijit.byId(type + 'ColorPaletteWidget');
-      //console.log(cp);
-      dojo.style(dojo.byId(type + 'Swatch'),{backgroundColor: cp.value});
-    whiteboard[type + 'Color'] = cp.value;
-      dijit.popup.close(dijit.byId(type + "ColorPaletteDialog"));
-  };
+var chooseColor = function(type) {
+  var cp = dijit.byId(type + 'ColorPaletteWidget');
+  dojo.style(dojo.byId(type + 'Swatch'),{backgroundColor: cp.value});
+  whiteboard[type + 'Color'] = cp.value;
+  dijit.popup.close(dijit.byId(type + "ColorPaletteDialog"));
+};
 
 var cancelChooseColor = function(type) {
   dijit.popup.close(dijit.byId(type + "ColorPaletteDialog"));
 };
 
- var exportImage = function(){
-  try{
-
+var exportImage = function(){
+  try {
     dojo.byId("exportedImg").src = dojo.query('canvas',dojo.byId('applicationArea'))[0].toDataURL();
     dijit.byId("imgDialog").show();
-
-  }catch(e){
+  } catch(e){
     console.info("canvas not supported",e);
   }
-  };
+};
 
- var exportMovieImage = function(){
-    try{
-
-      dojo.byId("exportedImg").src = dojo.query('canvas',dojo.byId('movieDialog'))[0].toDataURL();
-      dijit.byId("imgDialog").show();
-
-    }catch(e){
-      console.info("canvas not supported",e);
-    }
+var exportMovieImage = function(){
+  try {
+    dojo.byId("exportedImg").src = dojo.query('canvas',dojo.byId('movieDialog'))[0].toDataURL();
+    dijit.byId("imgDialog").show();
+  } catch(e){
+    console.info("canvas not supported",e);
+  }
 };
 
 var showMovie = function(){
-    try{
+  try {
+    dijit.byId("movieDialog").show();
 
-      dijit.byId("movieDialog").show();
-
-      if(messageList){
-        whiteboard.geomMessageList = [];
-        dojo.forEach(messageList,function(m){
-          if(m.geometry){
-            whiteboard.geomMessageList.push(m);
-          }
-        });
-      }
-      var mSlider = dijit.byId('movieSlider');
-      mSlider.setAttribute('maximum',whiteboard.geomMessageList.length);
-      mSlider.setAttribute('discreteValues',whiteboard.geomMessageList.length);
-
-      mSlider.setValue(0);
-
-    }catch(e){
-      console.info("canvas not supported",e);
+    if(messageList){
+      whiteboard.geomMessageList = [];
+      dojo.forEach(messageList,function(m){
+        if(m.geometry){
+          whiteboard.geomMessageList.push(m);
+        }
+      });
     }
-  };
+    var mSlider = dijit.byId('movieSlider');
+    mSlider.setAttribute('maximum',whiteboard.geomMessageList.length);
+    mSlider.setAttribute('discreteValues',whiteboard.geomMessageList.length);
 
- var incrementMovie = function(){
-    var indexEnd = Math.round(dijit.byId('movieSlider').getValue());
-    whiteboard.movieDrawing.clear();
-    for(var i =0; i < indexEnd; i++){
-      drawFromJSON(whiteboard.geomMessageList[i].geometry, whiteboard.movieDrawing);
-    }
-    if(indexEnd > 0){
-      dojo.byId('movieUser').innerHTML = whiteboard.geomMessageList[indexEnd - 1].fromUser;
-    }
+    mSlider.setValue(0);
+  } catch(e){
+    console.info("canvas not supported",e);
+  }
+};
 
-  };
+var incrementMovie = function(){
+  var indexEnd = Math.round(dijit.byId('movieSlider').getValue());
+  whiteboard.movieDrawing.clear();
+  for(var i =0; i < indexEnd; i++){
+    drawFromJSON(whiteboard.geomMessageList[i].geometry, whiteboard.movieDrawing);
+  }
+  if(indexEnd > 0){
+    dojo.byId('movieUser').innerHTML = whiteboard.geomMessageList[indexEnd - 1].fromUser;
+  }
+};
 
-  var doCancelAddText = function(){
-    dijit.byId('wbText').setValue('');
+var doCancelAddText = function(){
+  dijit.byId('wbText').setValue('');
+  dijit.byId('textDialog').hide();
+  whiteboard.overlayDrawing.clear();
+  whiteboard.textPoint = null;
+};
+
+var doAddText = function(){
+  var text = dijit.byId('wbText').getValue();
+  if((text != '') && (whiteboard.textPoint)){
     dijit.byId('textDialog').hide();
-    whiteboard.overlayDrawing.clear();
+    var geom = createTextJSON(whiteboard.textPoint,text);
+    drawFromJSON(geom,whiteboard.drawing);
     whiteboard.textPoint = null;
-  };
+    whiteboard.sendMessage({geometry:geom});
+  }
+  whiteboard.overlayDrawing.clear();
+};
 
-  var doAddText = function(){
-    var text = dijit.byId('wbText').getValue();
-    if((text != '') && (whiteboard.textPoint)){
-      dijit.byId('textDialog').hide();
-      var geom = createTextJSON(whiteboard.textPoint,text);
-      drawFromJSON(geom,whiteboard.drawing);
-      whiteboard.textPoint = null;
-      whiteboard.sendMessage({geometry:geom});
-    }
-    whiteboard.overlayDrawing.clear();
-  };
+var doIncrementalText = function(){
+  whiteboard.overlayDrawing.clear();
+  var text = dijit.byId('wbText').getValue();
+  if((text != '') && (whiteboard.textPoint)){
+    var geom = createTextJSON(whiteboard.textPoint,text);
+    drawFromJSON(geom,whiteboard.overlayDrawing);
+  }
+};
 
-  var doIncrementalText = function(){
-    whiteboard.overlayDrawing.clear();
-    var text = dijit.byId('wbText').getValue();
-    if((text != '') && (whiteboard.textPoint)){
-      var geom = createTextJSON(whiteboard.textPoint,text);
-      drawFromJSON(geom,whiteboard.overlayDrawing);
-    }
-
-  };
-
- var loadFunction = function(){
+var loadFunction = function(){
   onOpened();
 
   dojo.connect(dijit.byId('lineColorPaletteOkBtn'),'onClick',function(){
@@ -957,19 +904,16 @@ var showMovie = function(){
     cancelChooseColor('fill');
   });
 
-  if(Modernizr.canvas)
-  {
+  if(Modernizr.canvas){
     dojo.connect(dijit.byId('exportImgBtn'),'onClick',exportImage);
     dojo.connect(dijit.byId('exportMovieImgBtn'),'onClick',exportMovieImage);
-  }else{
+  } else {
     dojo.style(dijit.byId('exportImgBtn').domNode, {'visibility': 'hidden', 'display': 'none'});
     dojo.style(dijit.byId('exportMovieImgBtn').domNode, {'visibility': 'hidden', 'display': 'none'});
   }
 
   dojo.connect(dijit.byId('showMovieBtn'),'onClick',showMovie);
   dojo.connect(dijit.byId('movieSlider'),'onChange',incrementMovie);
-
-
 
   dojo.connect(dijit.byId('lineStrokeSelect'),'onChange',function(){
     whiteboard.lineStroke = Math.floor(1.0 * dijit.byId('lineStrokeSelect').getValue());
@@ -988,7 +932,6 @@ var showMovie = function(){
     var geom = createClearDrawingJSON();
     whiteboard.sendMessage({geometry: geom });
     drawFromJSON(geom,whiteboard.drawing);
-
   });
 
   selectTool('pen');
@@ -999,66 +942,53 @@ var showMovie = function(){
     });
   });
 
+  dojo.connect(dijit.byId("wbText"), 'onKeyDown', function(evt) {
+    if(evt.keyCode == dojo.keys.ENTER) {
+      doAddText();
+    }
+  });
 
-    dojo.connect(dijit.byId("wbText"), 'onKeyDown', function(evt) {
-          if(evt.keyCode == dojo.keys.ENTER) {
-            doAddText();
-      }
-     });
+  dojo.connect(dijit.byId("okTextBtn"), 'onClick', function(evt) {
+    doAddText();
+  });
 
-     dojo.connect(dijit.byId("okTextBtn"), 'onClick', function(evt) {
-          doAddText();
-     });
+  dojo.connect(dijit.byId("cancelTextBtn"), 'onClick', function(evt) {
+    doCancelAddText();
+  });
 
-     dojo.connect(dijit.byId("cancelTextBtn"), 'onClick', function(evt) {
-          doCancelAddText();
-     });
+  dojo.connect(dijit.byId("wbText"), 'onKeyUp', function(evt) {
+    doIncrementalText();
+  });
 
-     dojo.connect(dijit.byId("wbText"), 'onKeyUp', function(evt) {
-          doIncrementalText();
-     });
+  dojo.connect(dijit.byId("wbText"), 'onChange', function(evt) {
+    doIncrementalText();
+  });
 
-     dojo.connect(dijit.byId("wbText"), 'onChange', function(evt) {
-          doIncrementalText();
-     });
+  dojo.connect(dijit.byId("textDialog"), 'onClose', function(evt) {
+    whiteboard.overlayDrawing.clear();
+    dijit.byId("wbText").setValue('');
+  });
 
-     dojo.connect(dijit.byId("textDialog"), 'onClose', function(evt) {
-      whiteboard.overlayDrawing.clear();
-      dijit.byId("wbText").setValue('');
-     });
+  dojo.connect(dijit.byId("textDialog"), 'onHide', function(evt) {
+    whiteboard.overlayDrawing.clear();
+    dijit.byId("wbText").setValue('');
+  });
 
-     dojo.connect(dijit.byId("textDialog"), 'onHide', function(evt) {
-      whiteboard.overlayDrawing.clear();
-      dijit.byId("wbText").setValue('');
-     });
+  try {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      document.querySelector('img').src = e.target.result;
+    };
 
-     try{
-       var reader = new FileReader();
-       reader.onload = function(e) {
-         document.querySelector('img').src = e.target.result;
-       };
-
-       function onDrop(e) {
-         reader.readAsDataURL(e.dataTransfer.files[0]);
-       };
-
-     }catch(imgE){
-
-
-     }
-
-
-
-
+    function onDrop(e) {
+      reader.readAsDataURL(e.dataTransfer.files[0]);
+    };
+  } catch(imgE){}
 };
-
-
 
 function DNDFileController(id) {
     var el_ = document.getElementById(id);
     var thumbnails_ = document.getElementById('thumbnails');
-
-
 
     this.dragenter = function(e) {
       e.stopPropagation();
@@ -1079,104 +1009,83 @@ function DNDFileController(id) {
 
     this.drop = function(e) {
 
-    try{
-
-      //console.log('dropevent',e);
-
+    try {
       var pt = getGfxMouse(e);
+      e.stopPropagation();
+      e.preventDefault();
 
-        e.stopPropagation();
-        e.preventDefault();
+      el_.classList.remove('rounded');
 
-        el_.classList.remove('rounded');
+      var files = e.dataTransfer.files;
 
-        var files = e.dataTransfer.files;
-
-        for (var i = 0, file; file = files[i]; i++) {
-          var imageType = /image.*/;
-          if (!file.type.match(imageType)) {
-            continue;
-          }
-
-            // FileReader
-          var reader = new FileReader();
-
-          reader.onerror = function(evt) {
-             alert('Error code: ' + evt.target.error.code);
-          };
-          reader.onload = (function(aFile) {
-            return function(evt) {
-              if (evt.target.readyState == FileReader.DONE) {
-
-                console.log('rawImg',evt.target.result.length);
-                var img = new Image();
-                img.src = evt.target.result;
-                var imgData = img.src;
-                var newH, newW;
-
-                img.onload = function(){
-                  console.log(img.height, img.width);
-                  var maxDim = 75;
-                  //console.log(whiteboard);
-                  if(img.height > maxDim || img.width > maxDim){
-                    //need to scale
-
-
-                    if(img.width > img.height){
-                      newW = maxDim;
-                      newH = Math.round((maxDim * img.height) / img.width);
-                    }else{
-                      newH = maxDim;
-                      newW = Math.round((maxDim * img.width) / img.height);
-
-                    }
-
-                  }else{
-                    newH = img.height;
-                    newW = img.width;
-                  }
-
-
-                  var tempCanvas = document.createElement("canvas");
-                  tempCanvas.height = newH;
-                  tempCanvas.width = newW;
-                  var tempContext = tempCanvas.getContext("2d");
-                  tempContext.drawImage(img,0,0,newW,newH);
-
-                  var bounds = {x1:pt.x, y1:pt.y, x2: pt.x + newW, y2: pt.y + newH};
-                  var imgJSON = createImageJSON(bounds,tempCanvas.toDataURL());
-
-
-                  //console.log(imgJSON);
-
-                  drawFromJSON(imgJSON,whiteboard.drawing);
-
-                  whiteboard.sendMessage({geometry:imgJSON});
-
-
-
-                };
-
-              }
-            };
-          })(file);
-
-          reader.readAsDataURL(file);
+      for (var i = 0, file; file = files[i]; i++) {
+        var imageType = /image.*/;
+        if (!file.type.match(imageType)) {
+          continue;
         }
 
-        return false;
+        // FileReader
+        var reader = new FileReader();
 
+        reader.onerror = function(evt) {
+          alert('Error code: ' + evt.target.error.code);
+        };
+        reader.onload = (function(aFile) {
+          return function(evt) {
+            if (evt.target.readyState == FileReader.DONE) {
+              console.log('rawImg',evt.target.result.length);
+              var img = new Image();
+              img.src = evt.target.result;
+              var imgData = img.src;
+              var newH, newW;
 
-    }catch(dropE){
+              img.onload = function(){
+                console.log(img.height, img.width);
+                var maxDim = 75;
+
+                if(img.height > maxDim || img.width > maxDim){
+                  //need to scale
+                  if(img.width > img.height){
+                    newW = maxDim;
+                    newH = Math.round((maxDim * img.height) / img.width);
+                  } else {
+                    newH = maxDim;
+                    newW = Math.round((maxDim * img.width) / img.height);
+                  }
+                } else {
+                  newH = img.height;
+                  newW = img.width;
+                }
+
+                var tempCanvas = document.createElement("canvas");
+                tempCanvas.height = newH;
+                tempCanvas.width = newW;
+                var tempContext = tempCanvas.getContext("2d");
+                tempContext.drawImage(img,0,0,newW,newH);
+
+                var bounds = {x1:pt.x, y1:pt.y, x2: pt.x + newW, y2: pt.y + newH};
+                var imgJSON = createImageJSON(bounds,tempCanvas.toDataURL());
+
+                drawFromJSON(imgJSON,whiteboard.drawing);
+
+                whiteboard.sendMessage({geometry:imgJSON});
+              };
+            }
+          };
+        })(file);
+        reader.readAsDataURL(file);
+      }
+      return false;
+    } catch(dropE){
       console.log('DnD error',dropE);
     }
-    };
-
-    el_.addEventListener("dragenter", this.dragenter, false);
-    el_.addEventListener("dragover", this.dragover, false);
-    el_.addEventListener("dragleave", this.dragleave, false);
-    el_.addEventListener("drop", this.drop, false);
   };
+
+  el_.addEventListener("dragenter", this.dragenter, false);
+  el_.addEventListener("dragover", this.dragover, false);
+  el_.addEventListener("dragleave", this.dragleave, false);
+  el_.addEventListener("drop", this.drop, false);
+};
 
 
 gapi.hangout.onApiReady.add(
