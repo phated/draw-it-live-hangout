@@ -1094,7 +1094,10 @@ gapi.hangout.onApiReady.add(
       console.log(videoCanvas.getHeight());
       console.log(videoCanvas.getWidth());
 
-      console.log(gapi.hangout.data.getValue('messageList'));
+      var stateMessageList = gapi.hangout.data.getValue('messageList');
+      if(stateMessageList){
+        messageList = dojo.fromJson(stateMessageList);
+      }
 
       gapi.hangout.data.onStateChanged.add(function(StateChangedEvent){
         try {
