@@ -24,6 +24,7 @@
       <link rel="stylesheet" href="http://phated.github.com/draw-it-live-hangout/css/style.css?v=3">
       <link href="http://phated.github.com/draw-it-live-hangout/styles.css" />
 
+      <script src="http://phated.github.com/draw-it-live-hangout/js/libs/modernizr2.js"></script>
       <script TYPE="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js" djConfig="parseOnLoad: true, baseUrl: '/js/', modulePaths:{azp:'azp'}, gfxRenderer:'canvas,svg,vml,silverlight',defaultDuration:1"></script>
 
       <style type="text/css">

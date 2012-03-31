@@ -66,182 +66,47 @@ whiteboard.sendMessage = function(message){
   if(resp.message){
   messageList.push(resp.message);
   }
-  clearChatUI();
   },
   error: function(e){
   console.info("post error",e);
-  clearChatUI();
   },
   handleAs: "json",
   preventCache: true
   });*/
 };
 
-  whiteboard.pingServer = function() {
-
-      dojo.xhrPost({
-          url: '/wbping',
-          content: {
-           wbId: wbId
-        },
-          load: function(resp){
-        if(resp.error)
-        {
-          console.info("error pinging server",resp.error);
-        }
-        setTimeout ( "whiteboard.pingServer()", whiteboard.pingInterval);
-         },
-         error: function(e){
-        console.info("post error on pinging server",e);
-        setTimeout ( "whiteboard.pingServer()", whiteboard.pingInterval);
-         },
-         handleAs: "json",
-         preventCache: true
-      });
-    };
-
-  var sendEmail = function() {
-
-    console.log('send');
-      dojo.xhrPost({
-          url: '/wbmail',
-          content: {
-           wbId: wbId,
-           email: dijit.byId('email').getValue()
-        },
-          load: function(resp){
-        if(resp.error)
-        {
-          console.info("error on email server",resp.error);
-        }
-
-         },
-         error: function(e){
-        console.info("post error email server",e);
-         },
-         handleAs: "json",
-         preventCache: true
-      });
-  };
-
-
- var getUserList = function() {
-
-        dojo.xhrPost({
-            url: '/wbgetUsers',
-            content: {
-             wbId: wbId
-          },
-            load: function(resp){
-          if(resp.error)
-          {
-            console.info("error getting users",resp.error);
-          }
-          populateUserList ( resp.userList);
-          setTimeout ( "getUserList()", whiteboard.userCheckInterval);
-           },
-           error: function(e){
-          console.info("post error on gettingUsers",e);
-          setTimeout ( "getUserList()", whiteboard.userCheckInterval);
-           },
-           handleAs: "json",
-           preventCache: true
-        });
-      };
-
-var populateUserList = function(userList){
-    try{
-      var output = '';
-      dojo.forEach(userList,function(user){
-        output += ('<span id=\"userListItem' + user + '\" style=\"background-color: #FFFFFF;\">' + user + '</span><br>');
-      });
-      dojo.byId("userListDiv").innerHTML = output;
-    }catch(e){
-      console.info("error filling user list div",e);
-    }
-  };
-
-var animateUserItem = function(user){
-    try{
-      var userNode = dojo.byId("userListItem" + user);
-      if(userNode){
-        dojo.animateProperty({
-                node: userNode,
-                duration: 750,
-                properties: {
-                    backgroundColor: {
-                        start: "red",
-                        end: "white"
-                    },
-                    color: {
-                        start: "white",
-                        end: "black"
-                    }
-                }
-            }).play();
+var sendEmail = function() {
+  console.log('send');
+  dojo.xhrPost({
+    url: '/wbmail',
+    content: {
+      wbId: wbId,
+      email: dijit.byId('email').getValue()
+    },
+    load: function(resp){
+      if(resp.error){
+        console.info("error on email server",resp.error);
       }
-
-    }catch(e)
-    {
-      console.info("couldn\'t animate " + user, e);
-    }
-
-  };
-
-var clearChatUI = function(){
-  try{
-    dijit.byId('chatText').setAttribute('disabled',false);
-    dijit.byId('chatText').setValue('');
-    dijit.byId('chatBtn').setAttribute('disabled',false);
-    dojo.byId('chatWaitMessage').innerHTML = '';
-  }catch(e){}
-  };
-
-
+    },
+    error: function(e){
+      console.info("post error email server",e);
+    },
+    handleAs: "json",
+    preventCache: true
+  });
+};
 
 var onOpened = function() {
-    dojo.byId('applicationArea').style.display = '';
-    dijit.byId('applicationArea').resize();
-    initGfx();
-    //whiteboard.sendMessage({chatMessage:'I\'m here!'});
-    dojo.connect(dijit.byId('chatBtn'),'onClick',sendChatMessage);
+  dojo.byId('applicationArea').style.display = '';
+  dijit.byId('applicationArea').resize();
+  initGfx();
+};
 
-    //display any saved messages
-    dojo.forEach(messageList,function(m){
-      if(m.chatMessage){
-        printChatMessage(m);
-      }
-    });
-
-   // whiteboard.pingServer();
-    //getUserList();
-
-  };
-
- var printChatMessage = function(message){
-
-    chatMessageList.push('<pre class=\"chatMessage\"><span class=\"chatFrom\">' + message.fromUser + '</span>: ' + message.chatMessage + '</pre><br>');
-    if(chatMessageList.length > messageMax){
-      chatMessageList.shift();
-    }
-
-    var messageListStr = '';
-    for(var i=0; i < chatMessageList.length; i++){
-      messageListStr += chatMessageList[i];
-    }
-    dojo.byId('output').innerHTML= messageListStr;
-    dojo.byId('output').scrollTop = dojo.byId('output').scrollHeight;
-
-  };
-
- var onMessage = function(m) {
+var onMessage = function(m) {
   console.log("onMessage", m);
 
   var obj = dojo.fromJson(m.data);
   console.log(obj);
-  if(obj.chatMessage){
-    printChatMessage(obj);
-  }
   if(obj.geometry && obj.geometry.shapeType){
     obj.geometry.fromUser = obj.fromUser;
     if(obj.fromUser != userName){
@@ -249,21 +114,10 @@ var onOpened = function() {
     }
   }
 
-  if(obj.chatMessage || obj.geometry)
-  {
+  if(obj.geometry){
     messageList.push(obj);
   }
-
-  if(obj.userList && (obj.userList.length > 0)){
-    populateUserList(obj.userList);
-  }
-
-  if(obj.fromUser){
-    //animateUserItem(obj.fromUser);
-  }
-
-
-  };
+};
 
  var openChannel = function() {
 
@@ -1129,26 +983,6 @@ var selectTool = function(toolName)
 var cancelChooseColor = function(type) {
   dijit.popup.close(dijit.byId(type + "ColorPaletteDialog"));
 };
-
-var  sendChatMessage = function(){
-  var cwm = dojo.byId('chatWaitMessage');
-  var ct = dijit.byId('chatText');
-  var cb = dijit.byId('chatBtn');
-  var msg = dojo.trim('' + ct.getValue());
-  if(msg == '')
-  {
-    cwm.innerHTML = 'Cat got your tongue?';
-    }else if(msg == lastMessage){
-      cwm.innerHTML = 'That\'s what you said last time.';
-    }else{
-      ct.setAttribute('disabled',true);
-    cb.setAttribute('disabled',true);
-    lastMessage = msg;
-    dojo.byId('chatWaitMessage').innerHTML = 'sending...';
-    whiteboard.sendMessage({chatMessage:msg});
-    }
-
-  };
 
  var exportImage = function(){
   try{
