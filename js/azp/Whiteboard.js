@@ -1102,7 +1102,10 @@ gapi.hangout.onApiReady.add(
       gapi.hangout.onParticipantsEnabled.add(function(ParticipantsEnabledEvent){
         gapi.hangout.data.submitDelta({messageList: dojo.toJson(messageList)});
       });
-      dojo.addOnLoad(loadFunction);
+      //dojo.addOnLoad(loadFunction);
     }
   }
 );
+
+// Wait for gadget to load.
+gadgets.util.registerOnLoadHandler(loadFunction);

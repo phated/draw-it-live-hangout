@@ -34,7 +34,6 @@
     </head>
     <body class="claro" style="height: 100%; width: 100%">
       <script src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.0"></script>
-      <script src="http://phated.github.com/draw-it-live-hangout/script.js"></script>
       <div id="container">
         <div id="main">
           <style type="text/css">

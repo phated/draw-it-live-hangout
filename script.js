@@ -30,6 +30,3 @@ function init() {
     }
   );
 }
-
-// Wait for gadget to load.
-gadgets.util.registerOnLoadHandler(init);
