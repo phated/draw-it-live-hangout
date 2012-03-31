@@ -987,28 +987,27 @@ var loadFunction = function(){
 };
 
 function DNDFileController(id) {
-    var el_ = document.getElementById(id);
-    var thumbnails_ = document.getElementById('thumbnails');
+  var el_ = document.getElementById(id);
+  var thumbnails_ = document.getElementById('thumbnails');
 
-    this.dragenter = function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      el_.classList.add('rounded');
-    };
+  this.dragenter = function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    el_.classList.add('rounded');
+  };
 
-    this.dragover = function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-    };
+  this.dragover = function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  };
 
-    this.dragleave = function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      el_.classList.remove('rounded');
-    };
+  this.dragleave = function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    el_.classList.remove('rounded');
+  };
 
-    this.drop = function(e) {
-
+  this.drop = function(e) {
     try {
       var pt = getGfxMouse(e);
       e.stopPropagation();
@@ -1094,6 +1093,9 @@ gapi.hangout.onApiReady.add(
       gapi.hangout.data.onStateChanged.add(function(StateChangedEvent){
         console.log(StateChangedEvent);
         onMessage(StateChangedEvent.state);
+      });
+      gapi.hangout.onParticipantsAdded.add(function(ParticipantsAddedEvent){
+        gapi.hangout.data.submitDelta({messageList: messageList});
       });
       dojo.addOnLoad(loadFunction);
     }
