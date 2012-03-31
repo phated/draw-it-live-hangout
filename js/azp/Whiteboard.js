@@ -2,6 +2,13 @@
 gapi.hangout.onApiReady.add(
     function(eventObj) {
       if (eventObj.isApiReady) {
+
+        gapi.hangout.data.onStateChanged.add(function(StateChangedEvent){
+          console.log(StateChangedEvent);
+          //messageList.push(dojo.fromJson(StateChangedEvent.addedKeys[0].value));
+          onMessage(StateChangedEvent.state);
+        });
+
 dojo.require('dijit.form.ValidationTextBox');
 dojo.require('dijit.form.Button');
 dojo.require('dijit.Dialog');

@@ -24,12 +24,6 @@ function init() {
   gapi.hangout.onApiReady.add(
     function(eventObj) {
       if (eventObj.isApiReady) {
-        gapi.hangout.data.onStateChanged.add(function(StateChangedEvent){
-          console.log(StateChangedEvent);
-          //messageList.push(dojo.fromJson(StateChangedEvent.addedKeys[0].value));
-          onMessage(StateChangedEvent.state);
-        });
-
         var participantId = gapi.hangout.getParticipantId();
         gapi.hangout.data.setValue(gapi.hangout.getParticipantById(participantId).person.displayName, participantId);
       }
