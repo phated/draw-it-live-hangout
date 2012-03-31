@@ -50,7 +50,6 @@ var whiteboard = {
   tool : 'pen',
   points : [],
   mouseDown : false
-
 };
 
 whiteboard.sendMessage = function(message){
