@@ -63,10 +63,10 @@ var onOpened = function() {
   initGfx();
 };
 
-var onMessage = function(m) {
-  console.log("onMessage", m);
+var onMessage = function(newData) {
+  console.log("onMessage", newData);
 
-  var obj = dojo.fromJson(m.data);
+  var obj = dojo.fromJson(newData);
   console.log(obj);
   if(obj.geometry && obj.geometry.shapeType){
     obj.geometry.fromUser = obj.fromUser;
@@ -1107,7 +1107,10 @@ gapi.hangout.onApiReady.add(
           if(added.key === 'messageList'){
             messageList = dojo.fromJson(added.value);
           } else {
-            onMessage(StateChangedEvent.state);
+            dojo.forEach(StateChangedEvent.addedKeys, function(val){
+              onMessage(val.value)
+            });
+            //onMessage(StateChangedEvent.added);
           }
         } catch(err) {
           console.log(err);
