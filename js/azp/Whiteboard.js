@@ -1090,6 +1090,9 @@ function DNDFileController(id) {
 gapi.hangout.onApiReady.add(
   function(eventObj) {
     if (eventObj.isApiReady) {
+      console.log(gapi.hangout.layout.getHeight());
+      console.log(gapi.hangout.layout.getWidth());
+
       gapi.hangout.data.onStateChanged.add(function(StateChangedEvent){
         console.log(StateChangedEvent);
         onMessage(StateChangedEvent.state);
@@ -1099,10 +1102,10 @@ gapi.hangout.onApiReady.add(
         }
         //messageList = dojo.fromJson(gapi.hangout.data.getValue('messageList'));
       });
+
       gapi.hangout.onParticipantsEnabled.add(function(ParticipantsEnabledEvent){
         gapi.hangout.data.submitDelta({messageList: dojo.toJson(messageList)});
       });
-      //dojo.addOnLoad(loadFunction);
     }
   }
 );
