@@ -81,9 +81,13 @@ function init() {
   gapi.hangout.onApiReady.add(
       function(eventObj) {
         if (eventObj.isApiReady) {
+          gapi.hangout.data.onStateChanged.add(function(added, removed, sharedState, metadata){
+            console.log(added, removed, sharedState, metadata);
+          });
+
           var participantId = gapi.hangout.getParticipantId();
           gapi.hangout.data.setValue(gapi.hangout.getParticipantById(participantId).person.displayName, participantId);
-          console.log(gapi.hangout.data.getState());
+          //console.log(gapi.hangout.data.getState());
           document.getElementById('showParticipants')
             .style.visibility = 'visible';
         }
