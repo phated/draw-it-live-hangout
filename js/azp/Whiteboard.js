@@ -120,9 +120,7 @@ var onMessage = function(m) {
 };
 
  var openChannel = function() {
-
-    //var channel = new goog.appengine.Channel(token);
-    var handler = {
+    /*var handler = {
       'onopen': onOpened,
       'onmessage': onMessage,
       'onerror': function(e) {
@@ -131,11 +129,7 @@ var onMessage = function(m) {
       'onclose': function(c) {
           console.log("channel close",c);
        }
-    };
-    //var socket = channel.open(handler);
-   // console.log(socket);
-    //socket.onopen = onOpened;
-    //socket.onmessage = onMessage;
+    };*/
     onOpened();
   };
 
@@ -143,24 +137,20 @@ var onMessage = function(m) {
     whiteboard.container = dojo.byId("whiteboardContainer");
     whiteboard.overlayContainer = dojo.byId("whiteboardOverlayContainer");
 
-
     whiteboard.drawing = dojox.gfx.createSurface(whiteboard.container, whiteboard.width, whiteboard.height);
     whiteboard.overlayDrawing = dojox.gfx.createSurface(whiteboard.overlayContainer, whiteboard.width, whiteboard.height);
-
 
     //for playback
     whiteboard.movieContainer = dojo.byId("movieWhiteboardContainer");
     whiteboard.movieDrawing = dojox.gfx.createSurface(whiteboard.movieContainer, whiteboard.width, whiteboard.height);
 
-
     //draw any saved objects
     dojo.forEach(messageList,function(m){
       if(m.geometry){
         m.geometry.fromUser = m.fromUser;
-       drawFromJSON(m.geometry, whiteboard.drawing);
+        drawFromJSON(m.geometry, whiteboard.drawing);
       }
     });
-
 
     whiteboard.overlayContainer.style.width = whiteboard.width + 'px';
     whiteboard.overlayContainer.style.height = whiteboard.height + 'px';
@@ -179,23 +169,21 @@ var onMessage = function(m) {
 
     dojo.connect(dojo.body(),'onmouseup',doGfxMouseUp); //mouse release can happen anywhere in the container
     dojo.connect(whiteboard.overlayContainer,'onmousedown',doGfxMouseDown);
-    //dojo.connect(dojo.body(),'onmousemove',doGfxMouseMove);
     dojo.connect(whiteboard.overlayContainer,'onmousemove',doGfxMouseMove);
     console.log("topov",dojo.style(whiteboard.overlayContainer,"top"));
 
-     if(Modernizr.draganddrop){
-       console.log('supports drag and drop!');
-       var dndc = new DNDFileController('whiteboardOverlayContainer');
-     }
-
+    if(Modernizr.draganddrop){
+      console.log('supports drag and drop!');
+      var dndc = new DNDFileController('whiteboardOverlayContainer');
+    }
   };
 
 var addTimeRand = function(geom){
-    geom.cTime = new Date().getTime();
-    geom.cRand = Math.round(100000000000 * Math.random());
-    geom.fromUser = userName;
-    return geom;
-  };
+  geom.cTime = new Date().getTime();
+  geom.cRand = Math.round(100000000000 * Math.random());
+  geom.fromUser = userName;
+  return geom;
+};
 
 var createRectJSON = function(bounds,filled){
   bounds = normalizeBounds(bounds);
@@ -212,62 +200,62 @@ var createRectJSON = function(bounds,filled){
   geom.lineStroke = whiteboard.lineStroke;
 
   return addTimeRand(geom);
+};
+
+var createImageJSON = function(bounds,textData){
+  bounds = normalizeBounds(bounds);
+  var geom = {
+    xPts: [bounds.x1,bounds.x2],
+    yPts: [bounds.y1,bounds.y2],
+    shapeType: 'image'
   };
+  geom.dataStr = textData;
 
-  var createImageJSON = function(bounds,textData){
-    bounds = normalizeBounds(bounds);
-    var geom = {
-        xPts: [bounds.x1,bounds.x2],
-        yPts: [bounds.y1,bounds.y2],
-        shapeType: 'image'
-    };
-    geom.dataStr = textData;
+  return addTimeRand(geom);
+};
 
-    return addTimeRand(geom);
-    };
-
-  var createSelectJSON = function(bounds){
-    bounds = normalizeBounds(bounds);
-    var geom = {
-        xPts: [bounds.x1,bounds.x2],
-        yPts: [bounds.y1,bounds.y2]
-    };
-    geom.shapeType = 'select';
-    return geom;
+var createSelectJSON = function(bounds){
+  bounds = normalizeBounds(bounds);
+  var geom = {
+    xPts: [bounds.x1,bounds.x2],
+    yPts: [bounds.y1,bounds.y2]
   };
+  geom.shapeType = 'select';
+  return geom;
+};
 
-  var createTextJSON = function(pt,text){
-    var geom = {
-        xPts: [pt.x],
-        yPts: [pt.y]
-    };
-    geom.shapeType = 'text';
-    geom.text = text;
-    geom.lineStroke = whiteboard.fontSize;
-    geom.lineColor = whiteboard.lineColor;
-
-    return addTimeRand(geom);
-    };
-
-
-  var createDeleteOverlayJSON = function(bounds){
-    bounds = normalizeBounds(bounds);
-    var geom = {
-        xPts: [bounds.x1,bounds.x2],
-        yPts: [bounds.y1,bounds.y2]
-    };
-    geom.shapeType = 'deleteOverlay';
-    return geom;
+var createTextJSON = function(pt,text){
+  var geom = {
+    xPts: [pt.x],
+    yPts: [pt.y]
   };
+  geom.shapeType = 'text';
+  geom.text = text;
+  geom.lineStroke = whiteboard.fontSize;
+  geom.lineColor = whiteboard.lineColor;
 
-  var createMoveOverlayJSON = function(bounds){
-    bounds = normalizeBounds(bounds);
-    var geom = {
-        xPts: [bounds.x1,bounds.x2],
-        yPts: [bounds.y1,bounds.y2]
-    };
-    geom.shapeType = 'moveOverlay';
-    return geom;
+  return addTimeRand(geom);
+};
+
+
+var createDeleteOverlayJSON = function(bounds){
+  bounds = normalizeBounds(bounds);
+  var geom = {
+    xPts: [bounds.x1,bounds.x2],
+    yPts: [bounds.y1,bounds.y2]
+  };
+  geom.shapeType = 'deleteOverlay';
+  return geom;
+};
+
+var createMoveOverlayJSON = function(bounds){
+  bounds = normalizeBounds(bounds);
+  var geom = {
+    xPts: [bounds.x1,bounds.x2],
+    yPts: [bounds.y1,bounds.y2]
+  };
+  geom.shapeType = 'moveOverlay';
+  return geom;
 };
 
 var createMoveUpOverlayJSON = function(bounds){
@@ -283,10 +271,9 @@ var createMoveDownOverlayJSON = function(bounds){
 };
 
 var createMoveJSON = function(shape,ptDelta){
-
   var geom = {
-      xPts: [ptDelta.x],
-      yPts: [ptDelta.y]
+    xPts: [ptDelta.x],
+    yPts: [ptDelta.y]
   };
   geom.shapeType = 'move';
   geom.cTime = shape.cTime;
@@ -295,9 +282,7 @@ var createMoveJSON = function(shape,ptDelta){
   return geom;
 };
 
-
 var createMoveUpJSON = function(shape,ptDelta){
-
   var geom = {};
   geom.shapeType = 'moveUp';
   geom.cTime = shape.cTime;
@@ -307,7 +292,6 @@ var createMoveUpJSON = function(shape,ptDelta){
 };
 
 var createMoveDownJSON = function(shape,ptDelta){
-
   var geom = {};
   geom.shapeType = 'moveDown';
   geom.cTime = shape.cTime;
@@ -317,113 +301,96 @@ var createMoveDownJSON = function(shape,ptDelta){
 };
 
 var createDeleteJSON = function(shape){
-
-    var geom = {};
-    geom.shapeType = 'delete';
-    geom.cTime = shape.cTime;
-    geom.cRand = shape.cRand;
-    geom.fromUser = shape.fromUser;
-    return geom;
+  var geom = {};
+  geom.shapeType = 'delete';
+  geom.cTime = shape.cTime;
+  geom.cRand = shape.cRand;
+  geom.fromUser = shape.fromUser;
+  return geom;
 };
 
  var createEllipseJSON = function(bounds,filled){
-    bounds = normalizeBounds(bounds);
-    var geom = {
-        xPts: [bounds.x1,bounds.x2],
-        yPts: [bounds.y1,bounds.y2]
-    };
-    geom.shapeType = 'ellipse';
-    geom.filled = filled;
-    if(filled){
-      geom.fillColor = whiteboard.fillColor;
-    }
-    geom.lineColor = whiteboard.lineColor;
-    geom.lineStroke = whiteboard.lineStroke;
-
-    return addTimeRand(geom);
+  bounds = normalizeBounds(bounds);
+  var geom = {
+    xPts: [bounds.x1,bounds.x2],
+    yPts: [bounds.y1,bounds.y2]
   };
-
-var createLineJSON = function(bounds){
-    var geom = {
-        xPts: [bounds.x1,bounds.x2],
-        yPts: [bounds.y1,bounds.y2]
-    };
-    geom.shapeType = 'line';
+  geom.shapeType = 'ellipse';
+  geom.filled = filled;
+  if(filled){
     geom.fillColor = whiteboard.fillColor;
-    geom.lineColor = whiteboard.lineColor;
-    geom.lineStroke = whiteboard.lineStroke;
+  }
+  geom.lineColor = whiteboard.lineColor;
+  geom.lineStroke = whiteboard.lineStroke;
 
-    return addTimeRand(geom);
- };
-
-var createPenJSON = function(points){
-    var xPts = [];
-    var yPts = [];
-    dojo.forEach(points, function(point){
-     xPts.push(point.x);
-     yPts.push(point.y);
-    });
-    var geom = {shapeType: 'pen',
-          fillColor: whiteboard.fillColor,
-          lineColor: whiteboard.lineColor,
-          lineStroke: whiteboard.lineStroke,
-          xPts: xPts,
-          yPts: yPts
-        };
-
-    return addTimeRand(geom);
+  return addTimeRand(geom);
 };
 
-var  createClearDrawingJSON = function(){
+var createLineJSON = function(bounds){
+  var geom = {
+    xPts: [bounds.x1,bounds.x2],
+    yPts: [bounds.y1,bounds.y2]
+  };
+  geom.shapeType = 'line';
+  geom.fillColor = whiteboard.fillColor;
+  geom.lineColor = whiteboard.lineColor;
+  geom.lineStroke = whiteboard.lineStroke;
+
+  return addTimeRand(geom);
+};
+
+var createPenJSON = function(points){
+  var xPts = [];
+  var yPts = [];
+  dojo.forEach(points, function(point){
+    xPts.push(point.x);
+    yPts.push(point.y);
+  });
+  var geom = {
+    shapeType: 'pen',
+    fillColor: whiteboard.fillColor,
+    lineColor: whiteboard.lineColor,
+    lineStroke: whiteboard.lineStroke,
+    xPts: xPts,
+    yPts: yPts
+  };
+
+  return addTimeRand(geom);
+};
+
+var createClearDrawingJSON = function(){
   var geom = {shapeType: 'clear'};
   return geom;
 };
 
-
 var createOffsetBB = function(origBB, pointInBB, newPt){
-  //console.log('offset',origBB, pointInBB, newPt);
-
   var xDelta = Math.abs(pointInBB.x - origBB.x1);
   var yDelta = Math.abs(pointInBB.y - origBB.y1);
-
-  //console.log('deltas',xDelta,yDelta);
   var bounds = {
     x1: (newPt.x - xDelta),
     y1: (newPt.y - yDelta)
   };
-
   bounds.x2 = bounds.x1 + (origBB.x2 - origBB.x1);
   bounds.y2 = bounds.y1 + (origBB.y2 - origBB.y1);
 
   return bounds;
 };
 
-
-
-var drawFromJSON = function(geom,drawing)
-  {
+var drawFromJSON = function(geom,drawing){
   if(geom && geom.shapeType){
     var shape;
     var stroke = {color: geom.lineColor, width: geom.lineStroke};
     if(geom.shapeType == 'rect'){
       shape = drawing.createRect({x: geom.xPts[0], y: geom.yPts[0], width: (geom.xPts[1] - geom.xPts[0]), height: (geom.yPts[1] - geom.yPts[0]) });
-    }
-    else if(geom.shapeType == 'image'){
-      //var img = new Image();
-      //img.src = geom.text;
+    } else if(geom.shapeType == 'image'){
       var imgData = geom.dataStr;
-      //console.log('drawImage',imgData);
       if(imgData){
         shape =  drawing.createImage({src:imgData,x: geom.xPts[0], y: geom.yPts[0], width: (geom.xPts[1] - geom.xPts[0]), height: (geom.yPts[1] - geom.yPts[0]) });
       }
-
-    }
-    else if(geom.shapeType == 'line'){
+    } else if(geom.shapeType == 'line'){
       shape = drawing.createLine({x1: geom.xPts[0], y1: geom.yPts[0], x2: geom.xPts[1], y2: geom.yPts[1]});
       stroke.cap = 'round';
-    }
-    else if(geom.shapeType == 'text'){
-
+    } else if(geom.shapeType == 'text'){
       shape = drawing.createText({ x:geom.xPts[0], y:geom.yPts[0] + geom.lineStroke, text:geom.text});
       shape.setFont({ size:(geom.lineStroke + "pt"), weight:"normal", family:"Arial" });
       shape.setFill(geom.lineColor);
@@ -434,106 +401,77 @@ var drawFromJSON = function(geom,drawing)
         x2: (geom.xPts[0] + width),
         y2: geom.yPts[0] + geom.lineStroke
       };
-
-
-    }
-    else if(geom.shapeType == 'ellipse'){
-
-      shape = drawing.createEllipse({cx: ((geom.xPts[1] - geom.xPts[0])/2) + geom.xPts[0],
-         cy: ((geom.yPts[1] - geom.yPts[0])/2) + geom.yPts[0],
-         rx: (geom.xPts[1] - geom.xPts[0])/2,
-         ry: (geom.yPts[1] - geom.yPts[0])/2 });
-    }
-    else if(geom.shapeType == 'pen'){
+    } else if(geom.shapeType == 'ellipse'){
+      shape = drawing.createEllipse({
+        cx: ((geom.xPts[1] - geom.xPts[0])/2) + geom.xPts[0],
+        cy: ((geom.yPts[1] - geom.yPts[0])/2) + geom.yPts[0],
+        rx: (geom.xPts[1] - geom.xPts[0])/2,
+        ry: (geom.yPts[1] - geom.yPts[0])/2
+      });
+    } else if(geom.shapeType == 'pen'){
       if(geom.xPts){
         if(geom.xPts.length > 1){
-          //console.log("num pen points drawing:",geom.xPts.length);
           shape = drawing.createGroup();
-
           for(var i = 0; i < (geom.xPts.length - 1); i++){
-
             var lineShape = drawing.createLine({x1: geom.xPts[i], y1: geom.yPts[i], x2: geom.xPts[i + 1], y2: geom.yPts[i + 1]});
             stroke.cap = 'round';
             lineShape.setStroke(stroke);
-
             shape.add(lineShape);
           }
         }
       }
-    }else if(geom.shapeType == 'clear'){
+    } else if(geom.shapeType == 'clear'){
       drawing.clear();
-    }else if(geom.shapeType == 'delete'){
+    } else if(geom.shapeType == 'delete'){
       removeShape(geom,drawing);
-    }else if(geom.shapeType == 'move'){
+    } else if(geom.shapeType == 'move'){
       moveShape(geom,drawing);
-    }else if(geom.shapeType == 'moveUp'){
+    } else if(geom.shapeType == 'moveUp'){
       moveShapeUp(geom,drawing);
-    }else if(geom.shapeType == 'moveDown'){
+    } else if(geom.shapeType == 'moveDown'){
       moveShapeDown(geom,drawing);
-    }
-    else if(geom.shapeType == 'select'){
-
+    } else if(geom.shapeType == 'select'){
       shape = drawing.createRect({x: geom.xPts[0] - 3, y: geom.yPts[0] - 3, width: (geom.xPts[1] - geom.xPts[0] + 6), height: (geom.yPts[1] - geom.yPts[0] + 6) });
       shape.setStroke({color: new dojo.Color([0,0,255,0.75]), width: 2});
       shape.setFill(new dojo.Color([0,0,255,0.25]));
       return shape;
-    }else if(geom.shapeType == 'deleteOverlay'){
-
+    } else if(geom.shapeType == 'deleteOverlay'){
       shape = drawing.createRect({x: geom.xPts[0] - 3, y: geom.yPts[0] - 3, width: (geom.xPts[1] - geom.xPts[0] + 6), height: (geom.yPts[1] - geom.yPts[0] + 6) });
       shape.setStroke({color: new dojo.Color([255,0,0,0.75]), width: 2});
       shape.setFill(new dojo.Color([255,0,0,0.25]));
-
       var line = drawing.createLine({x1: geom.xPts[0] - 3, y1: geom.yPts[0] - 3, x2: geom.xPts[1] + 3, y2: geom.yPts[1] + 3});
       line.setStroke({color: "#FF0000", width: 2});
-
       line = drawing.createLine({x1: geom.xPts[1] + 3, y1: geom.yPts[0] - 3, x2: geom.xPts[0] - 3, y2: geom.yPts[1] + 3});
       line.setStroke({color: "#FF0000", width: 2});
-
       return shape;
-    }else if(geom.shapeType == 'moveOverlay'){
-
+    } else if(geom.shapeType == 'moveOverlay'){
       shape = drawing.createRect({x: geom.xPts[0] - 3, y: geom.yPts[0] - 3, width: (geom.xPts[1] - geom.xPts[0] + 6), height: (geom.yPts[1] - geom.yPts[0] + 6) });
       shape.setStroke({color: new dojo.Color([0,0,255,0.75]), width: 2});
       shape.setFill(new dojo.Color([0,0,255,0.25]));
-
       return shape;
-    }else if(geom.shapeType == 'moveUpOverlay'){
-
+    } else if(geom.shapeType == 'moveUpOverlay'){
       shape = drawing.createRect({x: geom.xPts[0] - 3, y: geom.yPts[0] - 3, width: (geom.xPts[1] - geom.xPts[0] + 6), height: (geom.yPts[1] - geom.yPts[0] + 6) });
-      //shape.setStroke({color: new dojo.Color([0,0,255,0.75]), width: 2});
       shape.setFill(new dojo.Color([0,0,255,0.15]));
-
       var line = drawing.createLine({x1: geom.xPts[0] - 5, y1: geom.yPts[0] + ((geom.yPts[1] - geom.yPts[0]) / 2), x2: geom.xPts[1] + 3, y2: geom.yPts[0] + ((geom.yPts[1] - geom.yPts[0]) / 2)});
       line.setStroke({color: "#0000FF", width: 2});
-
       line = drawing.createLine({x1: geom.xPts[0] - 5, y1: geom.yPts[0] + ((geom.yPts[1] - geom.yPts[0]) / 2), x2: geom.xPts[0] + ((geom.xPts[1] - geom.xPts[0]) / 2), y2: geom.yPts[0] -5});
       line.setStroke({color: "#0000FF", width: 2});
-
       line = drawing.createLine({x1: geom.xPts[0] + ((geom.xPts[1] - geom.xPts[0]) / 2), y1: geom.yPts[0] -5, x2: geom.xPts[1] + 5, y2: geom.yPts[0] + ((geom.yPts[1] - geom.yPts[0]) / 2)});
       line.setStroke({color: "#0000FF", width: 2});
-
-
       return shape;
-    }else if(geom.shapeType == 'moveDownOverlay'){
-
+    } else if(geom.shapeType == 'moveDownOverlay'){
       shape = drawing.createRect({x: geom.xPts[0] - 3, y: geom.yPts[0] - 3, width: (geom.xPts[1] - geom.xPts[0] + 6), height: (geom.yPts[1] - geom.yPts[0] + 6) });
-      //shape.setStroke({color: new dojo.Color([0,0,255,0.75]), width: 2});
       shape.setFill(new dojo.Color([0,0,255,0.15]));
-
       var line = drawing.createLine({x1: geom.xPts[0] - 5, y1: geom.yPts[0] + ((geom.yPts[1] - geom.yPts[0]) / 2), x2: geom.xPts[1] + 3, y2: geom.yPts[0] + ((geom.yPts[1] - geom.yPts[0]) / 2)});
       line.setStroke({color: "#0000FF", width: 2});
-
       line = drawing.createLine({x1: geom.xPts[0] - 5, y1: geom.yPts[0] + ((geom.yPts[1] - geom.yPts[0]) / 2), x2: geom.xPts[0] + ((geom.xPts[1] - geom.xPts[0]) / 2), y2: geom.yPts[1] + 5});
       line.setStroke({color: "#0000FF", width: 2});
-
       line = drawing.createLine({x1: geom.xPts[0] + ((geom.xPts[1] - geom.xPts[0]) / 2), y1: geom.yPts[1] + 5, x2: geom.xPts[1] + 5, y2: geom.yPts[0] + ((geom.yPts[1] - geom.yPts[0]) / 2)});
       line.setStroke({color: "#0000FF", width: 2});
-
       return shape;
     }
 
     if(shape){
-
       shape.cRand = geom.cRand;
       shape.cTime = geom.cTime;
       if(!shape.wbbb){
@@ -551,17 +489,15 @@ var drawFromJSON = function(geom,drawing)
 
     return shape;
   }
+};
 
- };
+var getBoundingBox = function(geom){
+  if(geom.xPts && geom.yPts){
+    var xs = geom.xPts;
+    var ys = geom.yPts;
+    var bb = {x1: 0, x2: -1, y1: 0, y2: -1 };
 
- var getBoundingBox = function(geom){
-
-   if(geom.xPts && geom.yPts){
-     var xs = geom.xPts;
-     var ys = geom.yPts;
-     var bb = {x1: 0, x2: -1, y1: 0, y2: -1 };
-
-     if(xs.length > 1){
+    if(xs.length > 1){
       bb.x1 = xs[0];
       bb.x2 = xs[1];
       dojo.forEach(xs, function(x){
@@ -572,130 +508,116 @@ var drawFromJSON = function(geom,drawing)
           bb.x2 = x;
         }
       });
-     }
-
-     if(ys.length > 1){
-        bb.y1 = ys[0];
-        bb.y2 = ys[1];
-        dojo.forEach(ys, function(y){
-          if(y < bb.y1){
-            bb.y1 = y;
-          }
-          else if(y > bb.y2){
-            bb.y2 = y;
-          }
-        });
-     }
-
-     return bb;
-   }
-   else{
-    return null;
-   }
-
- };
-
- var removeShape = function(geom, drawing){
-    var shape = getShapeFromGeom(geom,drawing);
-    if(shape){
-      drawing.remove(shape);
     }
 
-  };
+    if(ys.length > 1){
+      bb.y1 = ys[0];
+      bb.y2 = ys[1];
+      dojo.forEach(ys, function(y){
+        if(y < bb.y1){
+          bb.y1 = y;
+        }
+        else if(y > bb.y2){
+          bb.y2 = y;
+        }
+      });
+    }
 
+    return bb;
+  } else {
+    return null;
+  }
+
+};
+
+var removeShape = function(geom, drawing){
+  var shape = getShapeFromGeom(geom,drawing);
+  if(shape){
+    drawing.remove(shape);
+  }
+};
 
 var moveShape = function(geom, drawing){
-    var shape = getShapeFromGeom(geom,drawing);
-    if(shape){
-      shape.applyTransform({dx: geom.xPts[0], dy: geom.yPts[0]});
-      if(shape.wbbb){
+  var shape = getShapeFromGeom(geom,drawing);
+  if(shape){
+    shape.applyTransform({dx: geom.xPts[0], dy: geom.yPts[0]});
+    if(shape.wbbb){
       shape.wbbb.x1 += geom.xPts[0];
       shape.wbbb.x2 += geom.xPts[0];
       shape.wbbb.y1 += geom.yPts[0];
       shape.wbbb.y2 += geom.yPts[0];
-      }
     }
-
+  }
 };
 
 var moveShapeUp = function(geom, drawing){
-    var shape = getShapeFromGeom(geom,drawing);
-    if(shape){
-      shape.moveToFront();
-    }
+  var shape = getShapeFromGeom(geom,drawing);
+  if(shape){
+    shape.moveToFront();
+  }
 };
 
 var moveShapeDown = function(geom, drawing){
-    var shape = getShapeFromGeom(geom,drawing);
-    if(shape){
-      shape.moveToBack();
-    }
+  var shape = getShapeFromGeom(geom,drawing);
+  if(shape){
+    shape.moveToBack();
+  }
 };
 
 
-  var getShapeFromGeom = function(geom, drawing){
-
-    var retVal = null;
-    dojo.every(drawing.children, function(shape){
-        if((shape.cRand == geom.cRand) && (shape.cTime == geom.cTime)){
-          retVal = shape;
-            return false;
-        }
-        return true; // keep going until we find one that isn't
-    });
-
-    return retVal;
-  };
-
- var pointInDrawing = function(pt){
-    if((pt.x > -2) && (pt.x < (whiteboard.width + 2)) && (pt.y > -2) && (pt.y < (whiteboard.height + 2))){
-      return true;
-    }else{
-     return false;
+var getShapeFromGeom = function(geom, drawing){
+  var retVal = null;
+  dojo.every(drawing.children, function(shape){
+    if((shape.cRand == geom.cRand) && (shape.cTime == geom.cTime)){
+      retVal = shape;
+      return false;
     }
+    return true; // keep going until we find one that isn't
+  });
 
-  };
+  return retVal;
+};
+
+var pointInDrawing = function(pt){
+  if((pt.x > -2) && (pt.x < (whiteboard.width + 2)) && (pt.y > -2) && (pt.y < (whiteboard.height + 2))){
+    return true;
+  }else{
+    return false;
+  }
+};
 
 var getGfxMouse = function(evt){
-    var coordsM = dojo.coords(whiteboard.container);
-    return {x: Math.round(evt.clientX - coordsM.x), y: Math.round(evt.clientY - coordsM.y)};
+  var coordsM = dojo.coords(whiteboard.container);
+  return {x: Math.round(evt.clientX - coordsM.x), y: Math.round(evt.clientY - coordsM.y)};
 };
 
-var  doGfxMouseDown = function(evt)
-  {
+var doGfxMouseDown = function(evt){
   var pt = getGfxMouse(evt);
-  //console.dir(pt);
   if(pointInDrawing(pt)){
     whiteboard.mouseDownPt = pt;
     whiteboard.points = [pt];
     whiteboard.mouseDown = true;
-
     whiteboard.selectedShape = getHoveredShape(whiteboard.drawing,pt);
   }
+};
 
- };
-
-var doGfxMouseMove = function(evt)
-  {
+var doGfxMouseMove = function(evt){
   var pt = getGfxMouse(evt);
-
   if(whiteboard.mouseDown){
     if((whiteboard.tool == 'pen') && pointInDrawing(pt) ){
       if((whiteboard.points[whiteboard.points.length - 1].x != pt.x) || (whiteboard.points[whiteboard.points.length - 1].y != pt.y)){
         whiteboard.points.push(pt);
 
         if(whiteboard.points.length > 1){
-        //make sure its not the same point as last time
-
-          var geom = createLineJSON(
-              {x1: whiteboard.points[whiteboard.points.length - 2].x,
-              y1: whiteboard.points[whiteboard.points.length - 2].y,
-              x2: whiteboard.points[whiteboard.points.length - 1].x,
-              y2: whiteboard.points[whiteboard.points.length - 1].y }
-          );
+          //make sure its not the same point as last time
+          var geom = createLineJSON({
+            x1: whiteboard.points[whiteboard.points.length - 2].x,
+            y1: whiteboard.points[whiteboard.points.length - 2].y,
+            x2: whiteboard.points[whiteboard.points.length - 1].x,
+            y2: whiteboard.points[whiteboard.points.length - 1].y
+          });
           drawFromJSON(geom,whiteboard.overlayDrawing);
         }
-
       }
     }else{
       var bounds = {x1:whiteboard.mouseDownPt.x, y1:whiteboard.mouseDownPt.y, x2: pt.x, y2: pt.y};
@@ -1070,51 +992,6 @@ var showMovie = function(){
     }
 
   };
-
-
-var submitUserName = function(){
-    var unm = dojo.byId('subitUserNameMessage');
-    var unt = dijit.byId('userNameText');
-    var unb = dijit.byId('userNameBtn');
-    if(!unt.isValid()){
-      unm.innerHTML = 'Invalid user name';
-    }else{
-      unb.setAttribute('disabled',true);
-      unt.setAttribute('disabled',true);
-      unm.innerHTML = 'sending...';
-
-      dojo.xhrPost({
-            url: '/wbSetName',
-            content: {
-             wbId: wbId,
-               userName: unt.getValue()
-           },
-            load: function(resp){
-          console.log("post response",resp);
-          if(resp.error){
-            unm.innerHTML = '<b>Error: ' + resp.error + '</b><br>Please try again.';
-            unb.setAttribute('disabled',false);
-            unt.setAttribute('disabled',false);
-          }else{
-            token = resp.token;
-            userName = resp.userName;
-            unm.innerHTML = 'connecting to channel...';
-            openChannel();
-          }
-           },
-           error: function(e){
-          console.info("post error",e);
-          unm.innerHTML = '<b>Error: ' + e + '</b><br>Please try again.';
-          unb.setAttribute('disabled',false);
-          unt.setAttribute('disabled',false);
-           },
-           handleAs: "json",
-           preventCache: true
-        });
-
-    }
- };
-
 
  var loadFunction = function(){
 
