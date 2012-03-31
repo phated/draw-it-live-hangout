@@ -1095,12 +1095,16 @@ gapi.hangout.onApiReady.add(
       console.log(videoCanvas.getWidth());
 
       gapi.hangout.data.onStateChanged.add(function(StateChangedEvent){
-        console.log(StateChangedEvent);
-        onMessage(StateChangedEvent.state);
-        var added = dojo.fromJson(StateChangedEvent.addedKeys[0]);
-        if(added.key === 'messageList'){
-          messageList = added.value;
+        try {
+          console.log(StateChangedEvent);
+          onMessage(StateChangedEvent.state);
+        } catch(err) {
+          console.log(err);
         }
+        //var added = dojo.fromJson(StateChangedEvent.addedKeys[0]);
+        /*if(added.key === 'messageList'){
+          messageList = added.value;
+        }*/
         //messageList = dojo.fromJson(gapi.hangout.data.getValue('messageList'));
       });
 
