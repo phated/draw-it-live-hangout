@@ -1,13 +1,4 @@
 //dojo.provide('azp.Whiteboard');
-gapi.hangout.onApiReady.add(
-    function(eventObj) {
-      if (eventObj.isApiReady) {
-
-        gapi.hangout.data.onStateChanged.add(function(StateChangedEvent){
-          console.log(StateChangedEvent);
-          //messageList.push(dojo.fromJson(StateChangedEvent.addedKeys[0].value));
-          onMessage(StateChangedEvent.state);
-        });
 
 dojo.require('dijit.form.ValidationTextBox');
 dojo.require('dijit.form.Button');
@@ -60,45 +51,9 @@ var whiteboard = {
 };
 
 whiteboard.sendMessage = function(message){
-  gapi.hangout.data.submitDelta({wbId: wbId, data: dojo.toJson(message)});
-  /*dojo.xhrPost({
-  url: '/wbpost',
-  content: {
-  wbId: wbId,
-  data: dojo.toJson(message)
-  },
-  load: function(resp){
-  console.log("post response",resp);
-  if(resp.message){
-  messageList.push(resp.message);
-  }
-  },
-  error: function(e){
-  console.info("post error",e);
-  },
-  handleAs: "json",
-  preventCache: true
-  });*/
-};
-
-var sendEmail = function() {
-  console.log('send');
-  dojo.xhrPost({
-    url: '/wbmail',
-    content: {
-      wbId: wbId,
-      email: dijit.byId('email').getValue()
-    },
-    load: function(resp){
-      if(resp.error){
-        console.info("error on email server",resp.error);
-      }
-    },
-    error: function(e){
-      console.info("post error email server",e);
-    },
-    handleAs: "json",
-    preventCache: true
+  gapi.hangout.data.submitDelta({
+    wbId: wbId,
+    data: dojo.toJson(message)
   });
 };
 
@@ -125,64 +80,50 @@ var onMessage = function(m) {
   }
 };
 
- var openChannel = function() {
-    /*var handler = {
-      'onopen': onOpened,
-      'onmessage': onMessage,
-      'onerror': function(e) {
-      console.log("channel error",e);
-        },
-      'onclose': function(c) {
-          console.log("channel close",c);
-       }
-    };*/
-    onOpened();
-  };
+var initGfx = function(){
+  whiteboard.container = dojo.byId("whiteboardContainer");
+  whiteboard.overlayContainer = dojo.byId("whiteboardOverlayContainer");
 
- var initGfx = function(){
-    whiteboard.container = dojo.byId("whiteboardContainer");
-    whiteboard.overlayContainer = dojo.byId("whiteboardOverlayContainer");
+  whiteboard.drawing = dojox.gfx.createSurface(whiteboard.container, whiteboard.width, whiteboard.height);
+  whiteboard.overlayDrawing = dojox.gfx.createSurface(whiteboard.overlayContainer, whiteboard.width, whiteboard.height);
 
-    whiteboard.drawing = dojox.gfx.createSurface(whiteboard.container, whiteboard.width, whiteboard.height);
-    whiteboard.overlayDrawing = dojox.gfx.createSurface(whiteboard.overlayContainer, whiteboard.width, whiteboard.height);
+  //for playback
+  whiteboard.movieContainer = dojo.byId("movieWhiteboardContainer");
+  whiteboard.movieDrawing = dojox.gfx.createSurface(whiteboard.movieContainer, whiteboard.width, whiteboard.height);
 
-    //for playback
-    whiteboard.movieContainer = dojo.byId("movieWhiteboardContainer");
-    whiteboard.movieDrawing = dojox.gfx.createSurface(whiteboard.movieContainer, whiteboard.width, whiteboard.height);
-
-    //draw any saved objects
-    dojo.forEach(messageList,function(m){
-      if(m.geometry){
-        m.geometry.fromUser = m.fromUser;
-        drawFromJSON(m.geometry, whiteboard.drawing);
-      }
-    });
-
-    whiteboard.overlayContainer.style.width = whiteboard.width + 'px';
-    whiteboard.overlayContainer.style.height = whiteboard.height + 'px';
-    whiteboard.container.style.width = whiteboard.width + 'px';
-    whiteboard.container.style.height = whiteboard.height + 'px';
-
-    whiteboard.movieContainer.style.width = whiteboard.width + 'px';
-    whiteboard.movieContainer.style.height = whiteboard.height + 'px';
-
-    whiteboard.overlayContainer.style.position = 'absolute';
-    whiteboard.overlayContainer.style.zIndex = 1;
-    var c = dojo.coords(whiteboard.container);
-    console.dir(c);
-    dojo.style(whiteboard.overlayContainer,"top", (c.t + 'px'));
-    dojo.style(whiteboard.overlayContainer,"left", (c.l + 'px'));
-
-    dojo.connect(dojo.body(),'onmouseup',doGfxMouseUp); //mouse release can happen anywhere in the container
-    dojo.connect(whiteboard.overlayContainer,'onmousedown',doGfxMouseDown);
-    dojo.connect(whiteboard.overlayContainer,'onmousemove',doGfxMouseMove);
-    console.log("topov",dojo.style(whiteboard.overlayContainer,"top"));
-
-    if(Modernizr.draganddrop){
-      console.log('supports drag and drop!');
-      var dndc = new DNDFileController('whiteboardOverlayContainer');
+  //draw any saved objects
+  dojo.forEach(messageList,function(m){
+    if(m.geometry){
+      m.geometry.fromUser = m.fromUser;
+      drawFromJSON(m.geometry, whiteboard.drawing);
     }
-  };
+  });
+
+  whiteboard.overlayContainer.style.width = whiteboard.width + 'px';
+  whiteboard.overlayContainer.style.height = whiteboard.height + 'px';
+  whiteboard.container.style.width = whiteboard.width + 'px';
+  whiteboard.container.style.height = whiteboard.height + 'px';
+
+  whiteboard.movieContainer.style.width = whiteboard.width + 'px';
+  whiteboard.movieContainer.style.height = whiteboard.height + 'px';
+
+  whiteboard.overlayContainer.style.position = 'absolute';
+  whiteboard.overlayContainer.style.zIndex = 1;
+  var c = dojo.coords(whiteboard.container);
+  console.dir(c);
+  dojo.style(whiteboard.overlayContainer,"top", (c.t + 'px'));
+  dojo.style(whiteboard.overlayContainer,"left", (c.l + 'px'));
+
+  dojo.connect(dojo.body(),'onmouseup',doGfxMouseUp); //mouse release can happen anywhere in the container
+  dojo.connect(whiteboard.overlayContainer,'onmousedown',doGfxMouseDown);
+  dojo.connect(whiteboard.overlayContainer,'onmousemove',doGfxMouseMove);
+  console.log("topov",dojo.style(whiteboard.overlayContainer,"top"));
+
+  if(Modernizr.draganddrop){
+    console.log('supports drag and drop!');
+    var dndc = new DNDFileController('whiteboardOverlayContainer');
+  }
+};
 
 var addTimeRand = function(geom){
   geom.cTime = new Date().getTime();
@@ -194,8 +135,8 @@ var addTimeRand = function(geom){
 var createRectJSON = function(bounds,filled){
   bounds = normalizeBounds(bounds);
   var geom = {
-      xPts: [bounds.x1,bounds.x2],
-      yPts: [bounds.y1,bounds.y2]
+    xPts: [bounds.x1,bounds.x2],
+    yPts: [bounds.y1,bounds.y2]
   };
   geom.shapeType = 'rect';
   geom.filled = filled;
@@ -1000,9 +941,7 @@ var showMovie = function(){
   };
 
  var loadFunction = function(){
-
-  openChannel();
-
+  onOpened();
 
   dojo.connect(dijit.byId('lineColorPaletteOkBtn'),'onClick',function(){
     chooseColor('line');
@@ -1051,15 +990,6 @@ var showMovie = function(){
     drawFromJSON(geom,whiteboard.drawing);
 
   });
-
-  dojo.connect(dijit.byId('sendMailButton'),'onClick',function(){
-
-    sendEmail();
-
-  });
-
-
-
 
   selectTool('pen');
 
@@ -1242,14 +1172,21 @@ function DNDFileController(id) {
     }
     };
 
-
     el_.addEventListener("dragenter", this.dragenter, false);
     el_.addEventListener("dragover", this.dragover, false);
     el_.addEventListener("dragleave", this.dragleave, false);
     el_.addEventListener("drop", this.drop, false);
   };
 
- dojo.addOnLoad(loadFunction);
+
+gapi.hangout.onApiReady.add(
+  function(eventObj) {
+    if (eventObj.isApiReady) {
+      gapi.hangout.data.onStateChanged.add(function(StateChangedEvent){
+        console.log(StateChangedEvent);
+        onMessage(StateChangedEvent.state);
+      });
+      loadFunction();
     }
   }
 );
