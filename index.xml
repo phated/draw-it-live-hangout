@@ -286,7 +286,6 @@
                 <div id="whiteboardContainer"></div>
                 <div id="whiteboardOverlayContainer"  style="z-index : 1;"></div>
               </div>
-
             </div>
           </div>
         </div>
