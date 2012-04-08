@@ -1090,9 +1090,6 @@ function DNDFileController(id) {
 gapi.hangout.onApiReady.add(
   function(eventObj) {
     if (eventObj.isApiReady) {
-      var videoCanvas = gapi.hangout.layout.getVideoCanvas();
-      console.log(videoCanvas.getHeight());
-      console.log(videoCanvas.getWidth());
 
       var stateMessageList = gapi.hangout.data.getValue('messageList');
       if(stateMessageList){
