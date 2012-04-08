@@ -52,7 +52,6 @@
               box-shadow: 0 0 4px #999999;
             }
             #whiteboardOverlayContainer{
-
               border: 1px solid #BBBBBB !important;
               margin:5px 10px 10px 10px;
               margin-bottom: 9px !important;
@@ -64,11 +63,13 @@
               -moz-box-shadow: 0 0 4px #999999;
               -webkit-box-shadow: 0 0 4px #999999;
               box-shadow: 0 0 4px #999999;
-
             }
             #lineSwatch{
               width:20px;
               display:inline-block !important;
+            }
+            #clearDrawingDisplay > .dijitArrowButtonInner {
+              display: none;
             }
           </style>
 
