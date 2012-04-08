@@ -1797,7 +1797,7 @@ DIV.dijitTabDisabled, .dj_ie DIV.dijitTabDisabled {
   outline: 1px dotted #4a4a4a;
 }
 .claro .dijitContentPaneLoading {
-  background: url(images/loadingAnimation.gif) no-repeat left center;
+  background: url(../images/loadingAnimation.gif) no-repeat left center;
   padding-left: 25px;
 }
 .claro .dijitContentPaneError {
@@ -1824,7 +1824,7 @@ DIV.dijitTabDisabled, .dj_ie DIV.dijitTabDisabled {
   padding-left: 21px;
 }
 .claro.dojoDndMove .dojoDndAvatarHeader, .claro.dojoDndCopy .dojoDndAvatarHeader {
-  background-image: url(images/dnd.png);
+  background-image: url(../images/dnd.png);
   background-repeat: no-repeat;
   background-position: 2px -122px;
 }
@@ -1849,7 +1849,7 @@ DIV.dijitTabDisabled, .dj_ie DIV.dijitTabDisabled {
 }
 .claro .dijitTextBoxError .dijitValidationContainer {
   background-color: #d46464;
-  background-image: url(images/error.png);
+  background-image: url(../images/error.png);
   background-position: top center;
   border: solid #d46464 0;
   border-left-width: 1px;
@@ -1894,7 +1894,7 @@ height: 70px;
 }
 .claro .dijitTextBoxHover {
   background-color: #e9f4fe;
-  background-image: url(images/textBox_back.png);
+  background-image: url(../images/textBox_back.png);
   background-repeat: repeat-x;
 }
 .claro .dijitTextBoxError, .claro .dijitTextBoxError .dijitButtonNode {
@@ -1911,7 +1911,7 @@ height: 70px;
 }
 .claro .dijitTextBoxFocused {
   background-color: #ffffff;
-  background-image: url(images/textBox_back.png);
+  background-image: url(../images/textBox_back.png);
   background-repeat: repeat-x;
 }
 .claro .dijitTextBoxFocused .dijitInputContainer {
@@ -1929,7 +1929,7 @@ height: 70px;
   color: #818181;
 }
 .claro .dijitComboBox .dijitArrowButtonInner {
-  background-image: url(images/commonFormArrows.png);
+  background-image: url(../images/commonFormArrows.png);
   background-position: -35px 53%;
   background-repeat: no-repeat;
   margin: 0;
@@ -1947,7 +1947,7 @@ height: 70px;
 }
 .claro .dijitComboBox .dijitButtonNode {
   background-color: #efefef;
-  background-image: url(images/formHighlight.png);
+  background-image: url(../images/formHighlight.png);
   background-repeat: repeat-x;
 }
 .claro .dijitComboBoxOpenOnClickHover .dijitButtonNode, .claro .dijitComboBox .dijitDownArrowButtonHover {
@@ -2077,7 +2077,7 @@ height: 70px;
   width: 15px;
   height: 15px;
   margin: 0 auto;
-  background-image: url(images/buttonArrows.png);
+  background-image: url(../images/buttonArrows.png);
   background-repeat: no-repeat;
   background-position: -51px 53%;
 }
@@ -2167,13 +2167,13 @@ height: 70px;
   border-radius: 0 4px 4px 0;
 }
 .claro .dijitToggleButton .dijitCheckBoxIcon {
-  background-image: url(images/checkmarkNoBorder.png);
+  background-image: url(../images/checkmarkNoBorder.png);
 }
 .dj_ie6 .claro .dijitToggleButton .dijitCheckBoxIcon {
-  background-image: url(images/checkmarkNoBorder.gif);
+  background-image: url(../images/checkmarkNoBorder.gif);
 }
 .claro .dijitCheckBox, .claro .dijitCheckBoxIcon {
-  background-image: url(images/checkboxRadioButtonStates.png);
+  background-image: url(../images/checkboxRadioButtonStates.png);
 
   background-repeat: no-repeat;
   width: 15px;
@@ -2281,11 +2281,11 @@ height: 70px;
   border: 1px solid #ffffff;
   border-top: none;
   background-color: #efefef;
-  background-image: url(images/formHighlight.png);
+  background-image: url(../images/formHighlight.png);
   background-repeat: repeat-x;
 }
 .claro .dijitSelect .dijitArrowButton .dijitArrowButtonInner {
-  background-image: url(images/commonFormArrows.png);
+  background-image: url(../images/commonFormArrows.png);
   background-position: -35px 70%;
   background-repeat: no-repeat;
   width: 16px;
@@ -2294,7 +2294,7 @@ height: 70px;
 .claro .dijitSelectHover {
   border: 1px solid #769dc0;
   background-color: #e9f4fe;
-  background-image: url(images/textBox_back.png);
+  background-image: url(../images/textBox_back.png);
   background-repeat: repeat-x;
 }
 .claro .dijitSelectHover .dijitButtonContents {
@@ -2728,7 +2728,7 @@ height: 70px;
   border: 1px solid #ffffff;
   border-top: none;
   background-color: #abd6ff;
-  background-image: url(images/titlebar.png);
+  background-image: url(../images/titlebar.png);
   background-repeat: repeat-x;
   padding: 5px 7px 4px 7px;
 }
@@ -2739,7 +2739,7 @@ height: 70px;
 }
 .claro .dijitDialogCloseIcon {
 
-  background: url(images/dialogCloseIcon.png);
+  background: url(../images/dialogCloseIcon.png);
   background-repeat: no-repeat;
   position: absolute;
   right: 5px;
@@ -2747,7 +2747,7 @@ height: 70px;
   width: 21px;
 }
 .dj_ie6 .claro .dijitDialogCloseIcon {
-  background-image: url(images/dialogCloseIcon8bit.png);
+  background-image: url(../images/dialogCloseIcon8bit.png);
 }
 .claro .dijitDialogCloseIconHover {
   background-position: -21px;
@@ -2775,7 +2775,7 @@ height: 70px;
 .claro .dijitTooltipContainer {
 
   background-color: #ffffff;
-  background-image: url(images/tooltipGradient.png);
+  background-image: url(../images/tooltipGradient.png);
   background-repeat: repeat-x;
   background-position: bottom;
   border: 1px solid #769dc0;
@@ -2794,13 +2794,13 @@ height: 70px;
 
   border: 0;
   z-index: 2;
-  background-image: url(images/tooltip.png);
+  background-image: url(../images/tooltip.png);
   background-repeat: no-repeat;
   width: 16px;
   height: 14px;
 }
 .dj_ie6 .claro .dijitTooltipConnector {
-  background-image: url(images/tooltip8bit.png);
+  background-image: url(../images/tooltip8bit.png);
 }
 .claro .dijitTooltipABRight .dijitTooltipConnector {
 
@@ -2950,7 +2950,7 @@ height: 70px;
 .claro .dijitCalendar {
   border: solid 1px #b5bcc7;
   background-color: #cfe5fa;
-  background-image: url(images/calendarContainerImages.png);
+  background-image: url(../images/calendarContainerImages.png);
   background-position: 0 -448px;
   background-repeat: repeat-x;
   text-align: center;
@@ -2982,11 +2982,11 @@ height: 70px;
 .claro .dijitCalendarIncrementControl {
   width: 18px;
   height: 16px;
-  background-image: url(images/calendarArrows.png);
+  background-image: url(../images/calendarArrows.png);
   background-repeat: no-repeat;
 }
 .dj_ie6 .claro .dijitCalendarIncrementControl {
-  background-image: url(images/calendarArrows8bit.png);
+  background-image: url(../images/calendarArrows8bit.png);
 }
 .claro .dijitCalendarIncrease {
   background-position: -18px 0;
@@ -3022,7 +3022,7 @@ height: 70px;
 .claro .dijitCalendarDateTemplate {
   text-align: center;
   background-color: #ffffff;
-  background-image: url(images/calendarContainerImages.png);
+  background-image: url(../images/calendarContainerImages.png);
   background-position: 0 0;
   background-repeat: repeat-x;
   border-bottom: 1px solid #d3d3d3;
@@ -3109,7 +3109,7 @@ height: 70px;
   background-color: #cfe5fa;
 }
 .claro .dijitCalendarActiveDate .dijitCalendarDateLabel {
-  background-image: url(images/calendarContainerImages.png);
+  background-image: url(../images/calendarContainerImages.png);
   background-position: 0 -300px;
   background-color: #7dbefa;
   border: solid 1px #ffffff;
@@ -3169,7 +3169,7 @@ height: 70px;
   background-color: #abd6ff;
   border-color: #769dc0;
   border-width: 1px 0;
-  background-image: url(images/commonHighlight.png);
+  background-image: url(../images/commonHighlight.png);
   background-repeat: repeat-x;
 }
 .claro .dijitMenuBar {
@@ -3177,7 +3177,7 @@ height: 70px;
   margin: 0;
   padding: 0;
   background-color: #efefef;
-  background-image: url(images/commonHighlight.png);
+  background-image: url(../images/commonHighlight.png);
   background-position: 0 0;
   background-repeat: repeat-x;
 }
@@ -3202,7 +3202,7 @@ height: 70px;
   margin: -1px;
 }
 .claro .dijitMenuItem {
-  background-image: url(images/menuHighlight.png);
+  background-image: url(../images/menuHighlight.png);
   background-position: 0 -40px;
   background-repeat: repeat-x;
 }
@@ -3260,7 +3260,7 @@ height: 70px;
 .claro .dijitMenuExpand {
   width: 7px;
   height: 7px;
-  background-image: url(images/spriteArrows.png);
+  background-image: url(../images/spriteArrows.png);
   background-position: -14px 0;
   margin-right: 3px;
 }
@@ -3615,12 +3615,12 @@ height: 70px;
 }
 .claro .dijitProgressBarEmpty {
 
-  background: #ffffff url(images/progressBarEmpty.png) repeat-none left;
+  background: #ffffff url(../images/progressBarEmpty.png) repeat-none left;
   border-color: #769dc0;
 }
 .claro .dijitProgressBarTile {
 
-  background: #abd6ff url(images/progressBarFull.png) repeat-x top;
+  background: #abd6ff url(../images/progressBarFull.png) repeat-x top;
 }
 .dj_ie6 .claro .dijitProgressBarTile {
   background-image: none;
@@ -3634,7 +3634,7 @@ height: 70px;
 }
 .claro .dijitProgressBarIndeterminate .dijitProgressBarTile {
 
-  background: #efefef url(images/progressBarAnim.gif) repeat-x top;
+  background: #efefef url(../images/progressBarAnim.gif) repeat-x top;
 }
 .claro .dijitTimePicker .dijitButtonNode {
   padding: 0 0;
@@ -3650,7 +3650,7 @@ height: 70px;
 }
 .claro .dijitTimePickerItem {
 
-  background-image: url(images/commonHighlight.png);
+  background-image: url(../images/commonHighlight.png);
   background-position: 0 -1px;
   background-repeat: repeat-x;
   border-top: solid 1px #b5bcc7;
@@ -3711,7 +3711,7 @@ height: 70px;
   border-right: none;
   border-color: #b5bcc7;
   background-color: #efefef;
-  background-image: url(images/commonHighlight.png);
+  background-image: url(../images/commonHighlight.png);
   background-position: 0 -1px;
   background-repeat: repeat-x;
 }
@@ -3819,7 +3819,7 @@ height: 70px;
   background-color: none;
   background-color: transparent;
   background-color: rgba(171, 214, 255, 0);
-  background-image: url(images/commonHighlight.png);
+  background-image: url(../images/commonHighlight.png);
   background-position: 0 0;
   background-repeat: repeat-x;
   border-color: rgba(118, 157, 192, 0);
@@ -3870,14 +3870,14 @@ height: 70px;
   background-repeat: repeat;
 }
 .claro .dijitTreeExpando {
-  background-image: url(images/treeExpandImages.png);
+  background-image: url(../images/treeExpandImages.png);
   width: 16px;
   height: 16px;
   background-position: -35px 0;
 
 }
 .dj_ie6 .claro .dijitTreeExpando {
-  background-image: url(images/treeExpandImages8bit.png);
+  background-image: url(../images/treeExpandImages8bit.png);
 }
 .claro .dijitTreeRowHover .dijitTreeExpandoOpened {
   background-position: -53px 0;
@@ -3892,7 +3892,7 @@ height: 70px;
   background-image: none;
 }
 .claro .dijitTreeExpandoLoading {
-  background-image: url(images/loadingAnimation.gif);
+  background-image: url(../images/loadingAnimation.gif);
 }
 .claro .dijitTreeNode .dojoDndItemBefore .dijitTreeContent {
   border-top: 2px solid #769dc0;
@@ -3904,7 +3904,7 @@ height: 70px;
 .claro .dijitToolbar {
   border-bottom: 1px solid #b5bcc7;
   background-color: #efefef;
-  background-image: url(images/commonHighlight.png);
+  background-image: url(../images/commonHighlight.png);
   background-position: 0 0;
   background-repeat: repeat-x;
   padding: 2px 0 2px 4px;
@@ -3928,7 +3928,7 @@ height: 70px;
   -webkit-transition-duration: 0.3s, 0.35s;
   -moz-transition-duration: 0.3s, 0.35s;
   transition-duration: 0.3s, 0.35s;
-  background-image: url(images/commonHighlight.png);
+  background-image: url(../images/commonHighlight.png);
   background-position: 0 -30px;
   background-repeat: repeat-x;
   background-color: rgba(171, 214, 255, 0);
@@ -4037,7 +4037,7 @@ height: 70px;
 }
 .claro .dijitEditor .dijitEditorIFrameContainer {
   background-color: #ffffff;
-  background-image: url(images/textBox_back.png);
+  background-image: url(../images/textBox_back.png);
   background-repeat: repeat-x;
 }
 .dj_ie6 .claro .dijitEditor .dijitEditorIFrameContainer {
@@ -4071,7 +4071,7 @@ height: 70px;
 	border-radius:0 2px 2px 0;
 }
 .dijitEditorIcon {
-	background-image: url(images/toolbar3.png);
+	background-image: url(../images/toolbar3.png);
 	background-repeat: no-repeat;
 	width: 18px;
 	height: 18px;
@@ -4129,7 +4129,7 @@ height: 70px;
 
 .claro .dijitTitlePaneTitle {
   background-color: #efefef;
-  background-image: url(images/titlebar.png);
+  background-image: url(../images/titlebar.png);
   background-repeat: repeat-x;
   border: 1px solid #b5bcc7;
   padding: 0 7px 3px 7px;
@@ -4152,7 +4152,7 @@ height: 70px;
   padding-bottom: 2px;
 }
 .claro .dijitTitlePane .dijitArrowNode {
-  background-image: url(images/spriteArrows.png);
+  background-image: url(../images/spriteArrows.png);
   background-repeat: no-repeat;
   height: 8px;
   width: 7px;
@@ -4194,7 +4194,7 @@ height: 70px;
 .claro .dijitSpinner .dijitArrowButton {
   width: auto;
   background-color: #efefef;
-  background-image: url(images/formHighlight.png);
+  background-image: url(../images/formHighlight.png);
   background-position: 0 0;
   background-repeat: repeat-x;
   overflow: hidden;
@@ -4210,7 +4210,7 @@ height: 70px;
   border: solid 1px #ffffff;
   border-bottom-width: 0;
 
-  background-image: url(images/commonFormArrows.png);
+  background-image: url(../images/commonFormArrows.png);
   background-repeat: no-repeat;
   height: 100%;
   width: 15px;
