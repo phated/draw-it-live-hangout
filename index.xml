@@ -270,7 +270,7 @@
                 <div dojoType="dijit.Tooltip" connectId="showMovieBtn" position="below" showDelay="0">
                   View all steps that made this drawing.
                 </div>
-                <div id="clearDrawingDisplay" dojoType="dijit.form.Button">
+                <div id="clearDrawingDisplay" dojoType="dijit.form.DropDownButton">
                   <span id="colorText">clear</span>
                   <div dojoType="dijit.TooltipDialog" id="clearDrawingDialog" title="Clear Drawing">
                     Clear Drawing?
