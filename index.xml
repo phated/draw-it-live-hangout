@@ -272,13 +272,13 @@
                 </div>
                 <div id="clearDrawingDisplay" dojoType="dijit.form.Button">
                   <span id="colorText">clear</span>
-                </div>
-                <div dojoType="dijit.TooltipDialog" id="clearDrawingDialog" title="Clear Drawing">
-                  Clear Drawing?
-                  <br>
-                  <button id="clearDrawingYesBtn" dojoType="dijit.form.Button">Yes</button>
-                  &nbsp;&nbsp;&nbsp;
-                  <button id="clearDrawingNoBtn" dojoType="dijit.form.Button">No</button>
+                  <div dojoType="dijit.TooltipDialog" id="clearDrawingDialog" title="Clear Drawing">
+                    Clear Drawing?
+                    <br>
+                    <button id="clearDrawingYesBtn" dojoType="dijit.form.Button">Yes</button>
+                    &nbsp;&nbsp;&nbsp;
+                    <button id="clearDrawingNoBtn" dojoType="dijit.form.Button">No</button>
+                  </div>
                 </div>
               </form>
 
